@@ -3,4 +3,5 @@
 
 source ./build
 
-go run example.go -h
+#go run example.go -h
+go run options.go -f -g
