@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+
+source ./build
+
+cd examples/amqp/pubsub
+go run pubsub.go

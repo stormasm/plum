@@ -2,5 +2,5 @@
 
 source ./build
 
-go get code.google.com/p/go.net/spdy
-go get github.com/gorilla/websocket
+go get github.com/streadway/amqp
+go get code.google.com/p/go.net/context
