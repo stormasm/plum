@@ -2,34 +2,25 @@ package main
 
 import (
 	"fmt"
-
 	flag "github.com/stormdock/plum/pkg/mflag"
 )
 
 var (
 	d, i, n, s, t   int
-	e, str, m       string
-	b, b2, f, h, v  bool
+	e, m            string
+	f, h, v         bool
 )
 
 func init() {
-	flag.Bool([]string{"#hp", "#-halp"}, false, "display the halp")
-	flag.BoolVar(&f, []string{"f", "-forever"}, false, "forever")
-	flag.BoolVar(&v, []string{"v", "-verbose"}, false, "run verbosely")
-	flag.BoolVar(&b, []string{"g", "#gil"}, false, "a simple bool")
-	flag.BoolVar(&b2, []string{"#-bool"}, false, "a simple bool")
-	flag.BoolVar(&h, []string{"h", "#help", "-help"}, false, "display the help")
-
-	flag.IntVar(&i, []string{"integer", "number"}, -1, "a simple integer")
+	flag.BoolVar(&h, []string{"h", "help"}, false, "display the help")
+	flag.BoolVar(&f, []string{"f", "forever"}, false, "forever")
+	flag.BoolVar(&v, []string{"v", "verbose"}, false, "run verbosely")
 
 	flag.IntVar(&d, []string{"d", "days"}, 10, "days")
 	flag.IntVar(&i, []string{"i", "iterations"}, 1, "iterations")
 	flag.IntVar(&n, []string{"n", "messages"}, 2, "messages")
 	flag.IntVar(&s, []string{"s", "seconds"}, 10, "seconds")
 	flag.IntVar(&t, []string{"t", "account"}, 1, "account number")
-
-
-	flag.StringVar(&str, []string{"mode"}, "mode1", "set the mode\nmode1: use the mode1\nmode2: use the mode2\nmode3: use the mode3")
 
 	flag.StringVar(&e, []string{"e"}, "test.spnee.generic", "exchange")
 	flag.StringVar(&m, []string{"m"}, "visit-useragent", "dimension")
@@ -46,16 +37,12 @@ func main() {
 		fmt.Printf("s: %d\n", s)
 		fmt.Printf("t: %d\n", t)
 
-
 		fmt.Printf("f: %t\n", f)
 		fmt.Printf("v: %t\n", v)
 
 		fmt.Printf("e: %s\n", e)
 		fmt.Printf("m: %s\n", m)
 
-		fmt.Printf("b: %t\n", b)
-		fmt.Printf("-bool: %t\n", b2)
-		fmt.Printf("s/#hidden/-string(via lookup): %s\n", flag.Lookup("s").Value.String())
 		fmt.Printf("ARGS: %v\n", flag.Args())
 	}
 }
