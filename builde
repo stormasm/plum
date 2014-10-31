@@ -3,5 +3,5 @@
 
 source ./build
 
-#go run example.go -h
-go run options.go -f -g -mode sammy -integer 66
+go run options.go -h
+#go run options.go -f -g -mode sammy -integer 66
