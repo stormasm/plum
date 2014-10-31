@@ -42,7 +42,5 @@ func main() {
 
 		fmt.Printf("e: %s\n", e)
 		fmt.Printf("m: %s\n", m)
-
-		fmt.Printf("ARGS: %v\n", flag.Args())
 	}
 }
