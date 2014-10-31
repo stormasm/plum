@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+
+source ./build
+cd pkg/mflag
+go test
