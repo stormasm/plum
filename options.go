@@ -17,7 +17,7 @@ func init() {
 	flag.BoolVar(&f, []string{"f", "-forever"}, false, "forever")
 	flag.BoolVar(&b, []string{"g", "#gil"}, false, "a simple bool")
 	flag.BoolVar(&b2, []string{"#-bool"}, false, "a simple bool")
-	flag.IntVar(&i, []string{"-integer", "-number"}, -1, "a simple integer")
+	flag.IntVar(&i, []string{"integer", "number"}, -1, "a simple integer")
 	flag.StringVar(&str, []string{"s", "#hidden", "-string"}, "", "a simple string") //-s -hidden and --string will work, but -hidden won't be in the usage
 	flag.BoolVar(&h, []string{"h", "#help", "-help"}, false, "display the help")
 	flag.StringVar(&str, []string{"mode"}, "mode1", "set the mode\nmode1: use the mode1\nmode2: use the mode2\nmode3: use the mode3")
@@ -27,6 +27,7 @@ func main() {
 	if h {
 		flag.PrintDefaults()
 	} else {
+		fmt.Printf("i: %d\n", i)
 		fmt.Printf("f: %t\n", f)
 		fmt.Printf("s/#hidden/-string: %s\n", str)
 		fmt.Printf("b: %t\n", b)

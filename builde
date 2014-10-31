@@ -4,4 +4,4 @@
 source ./build
 
 #go run example.go -h
-go run options.go -f -g
+go run options.go -f -g -integer 66
