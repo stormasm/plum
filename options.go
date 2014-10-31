@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	i               int
+	d, i, n, s, t   int
 	e, str, m       string
 	b, b2, f, h, v  bool
 )
@@ -22,7 +22,13 @@ func init() {
 
 	flag.IntVar(&i, []string{"integer", "number"}, -1, "a simple integer")
 
-	flag.StringVar(&str, []string{"s", "#hidden", "-string"}, "", "a simple string") //-s -hidden and --string will work, but -hidden won't be in the usage
+	flag.IntVar(&d, []string{"d", "days"}, 10, "days")
+	flag.IntVar(&i, []string{"i", "iterations"}, 1, "iterations")
+	flag.IntVar(&n, []string{"n", "messages"}, 2, "messages")
+	flag.IntVar(&s, []string{"s", "seconds"}, 10, "seconds")
+	flag.IntVar(&t, []string{"t", "account"}, 1, "account number")
+
+
 	flag.StringVar(&str, []string{"mode"}, "mode1", "set the mode\nmode1: use the mode1\nmode2: use the mode2\nmode3: use the mode3")
 
 	flag.StringVar(&e, []string{"e"}, "test.spnee.generic", "exchange")
@@ -34,14 +40,19 @@ func main() {
 	if h {
 		flag.PrintDefaults()
 	} else {
+		fmt.Printf("d: %d\n", d)
 		fmt.Printf("i: %d\n", i)
+		fmt.Printf("n: %d\n", n)
+		fmt.Printf("s: %d\n", s)
+		fmt.Printf("t: %d\n", t)
+
+
 		fmt.Printf("f: %t\n", f)
 		fmt.Printf("v: %t\n", v)
 
 		fmt.Printf("e: %s\n", e)
 		fmt.Printf("m: %s\n", m)
 
-		fmt.Printf("s/#hidden/-string: %s\n", str)
 		fmt.Printf("b: %t\n", b)
 		fmt.Printf("-bool: %t\n", b2)
 		fmt.Printf("s/#hidden/-string(via lookup): %s\n", flag.Lookup("s").Value.String())
