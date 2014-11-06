@@ -1,4 +1,4 @@
-package redis
+package redisc
 
 type RedisConfig struct {
 	Db_zero        uint64
