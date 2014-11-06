@@ -2,7 +2,7 @@
 #
 
 source ./build
-cd config
-go test
-cd ./../redis
+#cd config
+#go test
+cd redis
 go test
