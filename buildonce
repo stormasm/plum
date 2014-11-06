@@ -4,4 +4,5 @@ source ./build
 
 go get github.com/streadway/amqp
 go get code.google.com/p/go.net/context
+go get github.com/garyburd/redigo/redis
 go get github.com/stormasm/securerandom

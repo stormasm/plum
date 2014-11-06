@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+
+source ./build
+cd examples/redis
+go run test1.go
