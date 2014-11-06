@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	flag "github.com/stormdock/plum/pkg/mflag"
+	flag "github.com/stormasm/plum/pkg/mflag"
 )
 
 var (

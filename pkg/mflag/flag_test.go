@@ -7,7 +7,7 @@ package mflag_test
 import (
 	"bytes"
 	"fmt"
-	. "github.com/stormdock/plum/pkg/mflag"
+	. "github.com/stormasm/plum/pkg/mflag"
 	"os"
 	"sort"
 	"strings"
