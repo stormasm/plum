@@ -18,7 +18,7 @@ func (c *TokenConfig) Dbstart() string {
 	return db_start
 }
 
-func NewTokenConfig() (*TokenConfig) {
+func NewTokenConfig() *TokenConfig {
 	cfg := &TokenConfig{
 		Db_zero:        "0",
 		Db_uuid:        "10",
@@ -27,6 +27,5 @@ func NewTokenConfig() (*TokenConfig) {
 		Key_db_next:    "nextdb",
 		Key_db_mapping: "hm:accountid:db",
 	}
-	fmt.Printf("Initializing TokenConfig\n")
 	return cfg
 }
