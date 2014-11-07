@@ -3,5 +3,6 @@
 
 source ./build
 cd examples/redis
-go run test1.go
-go run test2.go
+#go run test1.go
+#go run test2.go
+go run test3.go
