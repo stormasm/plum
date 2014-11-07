@@ -7,4 +7,5 @@ func main() {
 cfg := redisc.NewTokenConfig()
 fmt.Println(cfg.Dbstart())
 fmt.Println(cfg.Db_uuid)
+fmt.Println(cfg.Key_db_mapping)
 }
