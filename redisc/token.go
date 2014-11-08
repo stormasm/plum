@@ -35,7 +35,6 @@ func AddOneToString(value string) string {
 	return plus1
 }
 
-
 func CreateDbNumber_from_accountid(account string) string {
 	dbnumber := GetDbNumber_from_accountid(account)
 	if dbnumber == "-1" {
@@ -56,7 +55,7 @@ func CreateDbNumber_from_accountid(account string) string {
 			dbnumber = tokencfg.Db_start
 			plus1 := AddOneToString(dbnumber)
 			redis.String(c.Do("SET", tokencfg.Key_db_next, plus1))
-		}	else {
+		} else {
 			dbnumber = nextdb
 			plus1 := AddOneToString(dbnumber)
 			redis.String(c.Do("SET", tokencfg.Key_db_next, plus1))
