@@ -67,13 +67,17 @@ func CreateDbNumber_from_accountid(account string) string {
 			redis.String(c.Do("SET", tokencfg.Key_db_next, plus1))
 
 		}	else {
-			dbnumber := nextdb
+			dbnumber = nextdb
 			fmt.Println("nextdb already exists adding 1 to it")
 			plus1 := AddOneToString(dbnumber)
 			fmt.Println("nextdb = ", plus1)
 			// store it in redis
 			redis.String(c.Do("SET", tokencfg.Key_db_next, plus1))
 		}
+		fmt.Println("Before")
+		redis.String(c.Do("HSET", tokencfg.Key_db_mapping, account, dbnumber))
+		fmt.Println("After")
+		//@redisc.hset(@key_db_mapping,account,db_number.to_s)
 	}
 	return dbnumber
 }
