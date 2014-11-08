@@ -38,9 +38,9 @@ func AddOneToString(value string) string {
 
 
 func CreateDbNumber_from_accountid(account string) string {
-	dbnumber := "nil"
+	dbnumber := GetDbNumber_from_accountid(account)
 	// First make sure it does not exist
-	if GetDbNumber_from_accountid(account) == "-1" {
+	if dbnumber == "-1" {
 
 		cfg := NewRedisConfig()
 		connect_string := cfg.Connect_string()
