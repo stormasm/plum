@@ -38,6 +38,7 @@ func AddOneToString(value string) string {
 
 
 func CreateDbNumber_from_accountid(account string) string {
+	dbnumber := "nil"
 	// First make sure it does not exist
 	if GetDbNumber_from_accountid(account) == "-1" {
 
@@ -57,34 +58,22 @@ func CreateDbNumber_from_accountid(account string) string {
 		fmt.Println(nextdb)
 
 		if err != nil {
-			return "-1"
-		}
+			fmt.Println("nextdb does not exist", err)
 
-		/*
-		if nextdb == nil {
-			fmt.Println("nextdb does not exist")
-			dbnumber := tokencfg.Db_start
-			next_dbnumber := dbnumber
-			// convert string to int
-			next_dbnumber := strconv.Atoi(next_dbnumber)
-			// add 1 to the number
-			next_dbnumber := next_dbnumber + 1
-			// convert back to a string
-			next_dbnumber := strconv.Itoa(next_dbnumber)
-			// store the string in redis
-			redis.String(c.Do("SET", tokencfg.Key_db_next, next_db_number))
-		}
-		*/
-		//else {
+			dbnumber = tokencfg.Db_start
+			plus1 := AddOneToString(dbnumber)
+			fmt.Println("nextdb = ", plus1)
+			// store it in redis
+			redis.String(c.Do("SET", tokencfg.Key_db_next, plus1))
 
+		}	else {
 			dbnumber := nextdb
 			fmt.Println("nextdb already exists adding 1 to it")
 			plus1 := AddOneToString(dbnumber)
 			fmt.Println("nextdb = ", plus1)
 			// store it in redis
 			redis.String(c.Do("SET", tokencfg.Key_db_next, plus1))
-		//}
+		}
 	}
-	return "OK"
-	//return dbnumber
+	return dbnumber
 }
