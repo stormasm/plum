@@ -96,6 +96,7 @@ func Create_uuid_account_project(uuidin, account, project string) {
 
 		redis.String(c.Do("SELECT", tokencfg.Db_apkey))
 		redis.String(c.Do("HSET", apkey, "uuid", uuidin))
+		CreateDbNumber_from_accountid(account)
 	} else {
 		fmt.Println("got uuid ", uuid)
 	}
