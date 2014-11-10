@@ -14,7 +14,7 @@ func GetDbNumber_from_accountid(account string) string {
 	defer c.Close()
 
 	tokencfg := NewTokenConfig()
-	redis.String(c.Do("SELECT", tokencfg.Db_ap))
+	redis.String(c.Do("SELECT", tokencfg.Db_dbnumber))
 	dbnumber, err := redis.String(c.Do("HGET", tokencfg.Key_db_mapping, account))
 
 	if err != nil {
@@ -48,7 +48,7 @@ func CreateDbNumber_from_accountid(account string) string {
 		defer c.Close()
 
 		tokencfg := NewTokenConfig()
-		redis.String(c.Do("SELECT", tokencfg.Db_ap))
+		redis.String(c.Do("SELECT", tokencfg.Db_dbnumber))
 		nextdb, err := redis.String(c.Do("GET", tokencfg.Key_db_next))
 
 		if err != nil {
