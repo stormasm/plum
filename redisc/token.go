@@ -89,12 +89,17 @@ func Create_uuid_account_project(uuidin, account, project string) {
 
 	if err != nil {
 		fmt.Println("account project key does not exist, creating a new uuid")
+
+		redis.String(c.Do("SELECT", tokencfg.Db_uuid))
+		redis.String(c.Do("HSET", uuidin, "account", account))
+		redis.String(c.Do("HSET", uuidin, "project", project))
+
+		redis.String(c.Do("SELECT", tokencfg.Db_apkey))
+		redis.String(c.Do("HSET", apkey, "uuid", uuidin))
 	} else {
 		fmt.Println("got uuid ", uuid)
 	}
 }
-
-
 
 /*
 
