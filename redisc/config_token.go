@@ -5,9 +5,8 @@ import (
 )
 
 type TokenConfig struct {
-	Db_zero        string
 	Db_uuid        string
-	Db_ap          string
+	Db_apkey       string
 	Db_dbnumber    string
 	Db_start       string
 	Key_db_next    string
@@ -21,9 +20,8 @@ func (c *TokenConfig) Dbstart() string {
 
 func NewTokenConfig() *TokenConfig {
 	cfg := &TokenConfig{
-		Db_zero:        "0",
 		Db_uuid:        "10",
-		Db_ap:          "11",
+		Db_apkey:       "11",
 		Db_dbnumber:    "12",
 		Db_start:       "100",
 		Key_db_next:    "nextdb",
