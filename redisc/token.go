@@ -4,6 +4,11 @@ import "fmt"
 import "strconv"
 import "github.com/garyburd/redigo/redis"
 
+func Get_apkey_from_account_project(account, project string) string {
+	apkey := fmt.Sprint(account, ":", project)
+	return apkey
+}
+
 func GetDbNumber_from_accountid(account string) string {
 	cfg := NewRedisConfig()
 	connect_string := cfg.Connect_string()
