@@ -1,8 +1,0 @@
-#!/bin/sh
-#
-
-source ./build
-#cd config
-#go test
-cd redis
-go test
