@@ -1,8 +1,7 @@
 #!/bin/sh
 #
 
-source ./build
-
+source ./run/z
 #go run options.go -h
 #go run options.go -d 6 -f -v -i 3 -s 7 -t 4 -m job-skills
 
