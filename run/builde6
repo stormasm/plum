@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+
+source ./run/z
+cd examples/redis
+#go run test1.go
+#go run test2.go
+go run test3.go

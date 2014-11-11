@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+ORG_PATH="github.com/stormasm"
+REPO_PATH="${ORG_PATH}/plum"
+
+export GOPATH=${PWD}/gopath
+
+rm -f $GOPATH/src/${REPO_PATH}
+mkdir -p $GOPATH/src/${ORG_PATH}
+ln -s ${PWD} $GOPATH/src/${REPO_PATH}
