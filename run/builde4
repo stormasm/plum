@@ -1,6 +1,6 @@
 #!/bin/sh
 #
 
-source ./build
-
+source ./run/z
+cd examples/misc
 go run securerandom.go
