@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+
+source ./run/z
+cd examples/spnee
+go run test1.go
