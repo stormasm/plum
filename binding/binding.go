@@ -6,7 +6,6 @@ package binding
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -23,11 +22,7 @@ type requestBinder func(req *http.Request, userStruct FieldMapper) Errors
 func Bind(req *http.Request, userStruct FieldMapper) Errors {
 	var errs Errors
 
-	fmt.Println("Inside Bind")
-
 	contentType := req.Header.Get("Content-Type")
-
-	fmt.Println("Got Content-Type", contentType)
 
 	if strings.Contains(contentType, "form-urlencoded") {
 		return Form(req, userStruct)
@@ -38,7 +33,6 @@ func Bind(req *http.Request, userStruct FieldMapper) Errors {
 	}
 
 	if strings.Contains(contentType, "json") {
-		fmt.Println("Got contentType json")
 		return Json(req, userStruct)
 	}
 

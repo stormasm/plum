@@ -27,8 +27,7 @@ func handler(resp http.ResponseWriter, req *http.Request) {
         return
     }
     fmt.Println("email = ", contactForm.Email)
-    fmt.Fprintf(resp, "Mia Email:   %s\n", contactForm.Email)
-    fmt.Fprintf(resp, "Iris Message: %s\n", contactForm.Message)
+    fmt.Println("message = ", contactForm.Message)
 }
 
 func main() {

@@ -5,5 +5,6 @@ source ./run/z
 go get code.google.com/p/go.net/context
 go get github.com/codegangsta/negroni
 go get github.com/garyburd/redigo/redis
+go get github.com/stormasm/goreq
 go get github.com/stormasm/securerandom
 go get github.com/streadway/amqp
