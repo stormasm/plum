@@ -3,4 +3,5 @@
 
 source ./run/z
 cd examples/rest
-go run admintoken.go
+#go run admintoken.go
+go run apitest.go
