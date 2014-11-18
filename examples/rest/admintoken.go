@@ -38,15 +38,15 @@ func main() {
       Uri: "http://localhost:4567/api/1.0/admin/token",
       Body: item1,
   }.Do()
-/*
+
   res2, err2 := goreq.Request{
       Method: "POST",
       ContentType: "application/json",
       Uri: "http://localhost:4567/api/1.0/admin/account",
       Body: item2,
   }.Do()
-*/
+
   fmt.Println(err1, res1)
-  //fmt.Println(err2, res2)
+  fmt.Println(err2, res2)
 
 }
