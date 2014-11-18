@@ -1,0 +1,6 @@
+#!/bin/sh
+#
+
+source ./run/z
+cd examples/rest
+go run admintoken.go
