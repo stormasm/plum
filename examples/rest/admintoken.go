@@ -21,20 +21,20 @@ type TokenForm2 struct {
 func main() {
 
   item1 := TokenForm1{ AccessToken: "104a5866-b844-4186-9322-19cacdcec298",
-                       Token: "704a5866-b844-4186-9322-99cacdcec299",
-                       Account: "7",
-                       Project: "9"}
+                       Token: "704a5866-b844-4186-9322-99cacdcec499",
+                       Account: "8",
+                       Project: "18"}
 
   item2 := TokenForm2{ AccessToken: "104a5866-b844-4186-9322-19cacdcec298",
                        Account: "6",
-                       Project: "8"}
+                       Project: "16"}
 
   fmt.Println(item1)
   fmt.Println(item2)
 
   res1, err1 := goreq.Request{
       Method: "POST",
-      ContentType: "json",
+      ContentType: "application/json",
       Uri: "http://localhost:4567/api/1.0/admin/token",
       Body: item1,
   }.Do()
