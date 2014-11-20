@@ -44,7 +44,7 @@ func Get_apkey_from_account_project(account, project string) string {
 	return apkey
 }
 
-func GetDbNumber_from_accountid(account string) string {
+func GetDbNumber_from_account(account string) string {
 	cfg := NewRedisConfig()
 	connect_string := cfg.Connect_string()
 	c, err := redis.Dial("tcp", connect_string)
@@ -75,8 +75,8 @@ func AddOneToString(value string) string {
 	return plus1
 }
 
-func CreateDbNumber_from_accountid(account string) string {
-	dbnumber := GetDbNumber_from_accountid(account)
+func CreateDbNumber_from_account(account string) string {
+	dbnumber := GetDbNumber_from_account(account)
 	if dbnumber == "-1" {
 		cfg := NewRedisConfig()
 		connect_string := cfg.Connect_string()
@@ -131,7 +131,7 @@ func Create_uuid_account_project(uuidin, account, project string) {
 
 		redis.String(c.Do("SELECT", tokencfg.Db_apkey))
 		redis.String(c.Do("HSET", apkey, "uuid", uuidin))
-		CreateDbNumber_from_accountid(account)
+		CreateDbNumber_from_account(account)
 	} else {
 		fmt.Println("got uuid ", uuid)
 	}
