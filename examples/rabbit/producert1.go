@@ -5,13 +5,13 @@ import (
 	"log"
 )
 
-var	(
-	uri string = "amqp://guest:guest@localhost:5672/"
+var (
+	uri          string = "amqp://guest:guest@localhost:5672/"
 	exchangeName string = "test-exchange"
 	exchangeType string = "direct"
-	routingKey string = "test-key"
-	body  string = "ralph in socorro"
-	reliable bool = true
+	routingKey   string = "test-key"
+	body         string = "ralph in socorro"
+	reliable     bool   = true
 )
 
 func main() {

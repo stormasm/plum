@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"github.com/streadway/amqp"
 	"log"
-	//"time"
 )
 
 type Consumer struct {

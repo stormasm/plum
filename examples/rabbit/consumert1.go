@@ -1,22 +1,19 @@
 package main
 
 import (
-	//"fmt"
-	//"github.com/stormasm/plum/rabbit"
-	//"github.com/streadway/amqp"
 	"github.com/stormasm/plum/rabbit"
 	"log"
 	"time"
 )
 
 var (
-	uri string = "amqp://guest:guest@localhost:5672/"
-	exchange string = "test-exchange"
-	exchangeType string = "direct"
-	queue string = "test-queue"
-	bindingKey string = "test-key"
-	consumerTag string = "simple-consumer"
-	lifetime time.Duration = 60*time.Second
+	uri          string        = "amqp://guest:guest@localhost:5672/"
+	exchange     string        = "test-exchange"
+	exchangeType string        = "direct"
+	queue        string        = "test-queue"
+	bindingKey   string        = "test-key"
+	consumerTag  string        = "simple-consumer"
+	lifetime     time.Duration = 60 * time.Second
 )
 
 func main() {
