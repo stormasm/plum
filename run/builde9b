@@ -3,4 +3,5 @@
 
 source ./run/z
 cd examples/binding
-go run test1req.go
+#go run test1req.go
+go run event1req.go
