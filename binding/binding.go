@@ -1,6 +1,9 @@
 // Package binding deserializes data from HTTP requests into a struct
 // ready for your application to use (without reflection). It also
 // facilitates data validation and error handling.
+//
+// https://github.com/mholt/binding
+//
 package binding
 
 import (
