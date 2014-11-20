@@ -7,9 +7,9 @@ import (
 
 type Event1 struct {
     AccessToken  string `json:"access_token"`
-    Dimension string `json:"token"`
-    Key string `json:"account"`
-    Value string `json:"project"`
+    Dimension string `json:"dimension"`
+    Key string `json:"key"`
+    Value string `json:"value"`
     CreatedAt string `json:"created_at"`
     Interval []string `json:"interval"`
     Calculation []string `json:"calculation"`
