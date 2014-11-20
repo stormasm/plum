@@ -18,7 +18,7 @@ func (cf *ContactForm) FieldMap() binding.FieldMap {
   }
 }
 
-type Event1 struct {
+type Event1Customer struct {
   AccessToken  string `json:"access_token"`
   Dimension string `json:"dimension"`
   Key string `json:"key"`
@@ -28,7 +28,7 @@ type Event1 struct {
   Calculation []string `json:"calculation"`
 }
 
-func (ev *Event1) FieldMap() binding.FieldMap {
+func (ev *Event1Customer) FieldMap() binding.FieldMap {
   return binding.FieldMap{
     &ev.AccessToken: "access_token",
     &ev.Dimension: "dimension",
@@ -52,7 +52,7 @@ func contacthandler(resp http.ResponseWriter, req *http.Request) {
 }
 
 func event1handler(resp http.ResponseWriter, req *http.Request) {
-  event1 := new(Event1)
+  event1 := new(Event1Customer)
   errs := binding.Bind(req, event1)
   if errs.Handle(resp) {
     return
