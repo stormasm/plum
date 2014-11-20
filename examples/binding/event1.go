@@ -52,6 +52,17 @@ func (ev *Event1Customer) FieldMap() binding.FieldMap {
   }
 }
 
+func (evc *Event1Customer) Transform() *Event1Storm {
+  evs := new(Event1Storm)
+  evs.Dimension = evc.Dimension
+  evs.Key = evc.Key
+  evs.Value = evc.Value
+  evs.CreatedAt = evc.CreatedAt
+  evs.Interval = evc.Interval
+  evs.Calculation = evc.Calculation
+  return evs
+}
+
 // Now your handlers can stay clean and simple.
 func contacthandler(resp http.ResponseWriter, req *http.Request) {
     contactForm := new(ContactForm)
@@ -76,6 +87,15 @@ func event1handler(resp http.ResponseWriter, req *http.Request) {
   fmt.Println("created_at = ", event1.CreatedAt)
   fmt.Println("interval = ", event1.Interval)
   fmt.Println("calculation = ", event1.Calculation)
+
+  evc := event1.Transform()
+  fmt.Println("OOOOOOOOOOOOO")
+  fmt.Println(evc.Dimension)
+  fmt.Println(evc.Key)
+  fmt.Println(evc.Value)
+  fmt.Println(evc.CreatedAt)
+  fmt.Println(evc.Interval)
+  fmt.Println(evc.Calculation)
 }
 
 func main() {
