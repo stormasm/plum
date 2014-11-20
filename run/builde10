@@ -2,7 +2,7 @@
 #
 
 source ./run/z
-cd examples/rest
+cd examples/api
 #go run admintoken.go
 #go run apitest.go
 go run apievent.go
