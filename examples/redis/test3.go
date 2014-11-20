@@ -19,4 +19,9 @@ func main() {
   apkey := redisc.Get_apkey_from_token("3339efca-5e99-4ea9-9cff-2075136e04bf")
   fmt.Println(apkey)
 
+  account := redisc.Get_account_from_apkey(apkey)
+  fmt.Println("account = ", account)
+
+  project := redisc.Get_project_from_apkey(apkey)
+  fmt.Println("project = ", project)
 }

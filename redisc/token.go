@@ -2,6 +2,7 @@ package redisc
 
 import "fmt"
 import "strconv"
+import "strings"
 import "github.com/garyburd/redigo/redis"
 
 func Get_apkey_from_token(token string) string {
@@ -24,6 +25,18 @@ func Get_apkey_from_token(token string) string {
 
 	apkey := Get_apkey_from_account_project(account, project)
 	return apkey
+}
+
+func Get_account_from_apkey(apkey string) string {
+	s := strings.Split(apkey, ":")
+	account := s[0]
+	return account
+}
+
+func Get_project_from_apkey(apkey string) string {
+	s := strings.Split(apkey, ":")
+	project := s[1]
+	return project
 }
 
 func Get_apkey_from_account_project(account, project string) string {
