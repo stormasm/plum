@@ -13,6 +13,10 @@ func main() {
   //dbnumber := redisc.CreateDbNumber_from_accountid("1")
   //fmt.Println(dbnumber)
 
-  fmt.Println("Hi")
-  redisc.Generate_token()
+  //fmt.Println("Hi")
+  //redisc.Generate_token()
+
+  apkey := redisc.Get_apkey_from_token("3339efca-5e99-4ea9-9cff-2075136e04bf")
+  fmt.Println(apkey)
+
 }

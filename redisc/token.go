@@ -4,6 +4,28 @@ import "fmt"
 import "strconv"
 import "github.com/garyburd/redigo/redis"
 
+func Get_apkey_from_token(token string) string {
+	cfg := NewRedisConfig()
+	connect_string := cfg.Connect_string()
+	c, err := redis.Dial("tcp", connect_string)
+	if err != nil {
+		panic(err)
+	}
+	defer c.Close()
+
+	tokencfg := NewTokenConfig()
+	redis.String(c.Do("SELECT", tokencfg.Db_uuid))
+	account, err := redis.String(c.Do("HGET", token, "account"))
+	project, err := redis.String(c.Do("HGET", token, "project"))
+
+	if err != nil {
+		return "-1"
+	}
+
+	apkey := Get_apkey_from_account_project(account, project)
+	return apkey
+}
+
 func Get_apkey_from_account_project(account, project string) string {
 	apkey := fmt.Sprint(account, ":", project)
 	return apkey
