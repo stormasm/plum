@@ -9,5 +9,8 @@ source ./run/z
 #cd examples/amqp/simple-consumer
 #go run consumer.go
 
-cd examples/amqp/simple-producer
-go run producer.go
+#cd examples/amqp/simple-producer
+#go run producer.go
+
+cd examples/rabbit
+go run producert1.go
