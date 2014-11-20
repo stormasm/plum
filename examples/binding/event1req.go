@@ -10,7 +10,7 @@ type ContactForm struct {
     Message string `json:"message"`
 }
 
-func main() {
+func contactRequest() {
 
   item := ContactForm{ Email: "f@g.edu", Message: "Hola Thursday" }
 
@@ -23,4 +23,8 @@ func main() {
 
   fmt.Println(err)
   fmt.Println(res)
+}
+
+func main() {
+  contactRequest()
 }
