@@ -28,6 +28,18 @@ type Event1Customer struct {
   Calculation []string `json:"calculation"`
 }
 
+type Event1Storm struct {
+  Account string `json:"account"`
+  Project string `json:"project"`
+  Dbnumber string `json:"dbnumber"`
+  Dimension string `json:"dimension"`
+  Key string `json:"key"`
+  Value string `json:"value"`
+  CreatedAt string `json:"created_at"`
+  Interval []string `json:"interval"`
+  Calculation []string `json:"calculation"`
+}
+
 func (ev *Event1Customer) FieldMap() binding.FieldMap {
   return binding.FieldMap{
     &ev.AccessToken: "access_token",
