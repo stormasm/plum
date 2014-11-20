@@ -17,7 +17,7 @@ type Event1 struct {
 
 func main() {
 
-  item1 := Event1{ AccessToken: "104a5866-b844-4186-9322-19cacdcec298",
+  item1 := Event1{ AccessToken: "104a5866-b844-4186-9322-19cacdcec297",
                   Dimension: "job-skills",
                   Key: "ruby",
                   Value: "18",
