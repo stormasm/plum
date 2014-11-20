@@ -1,10 +1,23 @@
 package main
 
 import (
+    "encoding/json"
     "fmt"
+    "log"
     "net/http"
     "github.com/stormasm/plum/binding"
+    "github.com/stormasm/plum/rabbit"
+    "github.com/stormasm/plum/redisc"
 )
+
+var (
+  uri          string = "amqp://guest:guest@localhost:5672/"
+  exchangeName string = "test-exchange"
+  exchangeType string = "direct"
+  routingKey   string = "test-key"
+  // body         string = "ralph in socorro"
+  reliable     bool   = true
+  )
 
 type ContactForm struct {
     Email string `json:"email"`
@@ -54,6 +67,14 @@ func (ev *Event1Customer) FieldMap() binding.FieldMap {
 
 func (evc *Event1Customer) Transform() *Event1Storm {
   evs := new(Event1Storm)
+  access_token := evc.AccessToken
+  apkey := redisc.Get_apkey_from_token(access_token)
+  account := redisc.Get_account_from_apkey(apkey)
+  project := redisc.Get_project_from_apkey(apkey)
+  dbnumber := redisc.GetDbNumber_from_account(account)
+  evs.Account = account
+  evs.Project = project
+  evs.Dbnumber = dbnumber
   evs.Dimension = evc.Dimension
   evs.Key = evc.Key
   evs.Value = evc.Value
@@ -90,12 +111,28 @@ func event1handler(resp http.ResponseWriter, req *http.Request) {
 
   evc := event1.Transform()
   fmt.Println("OOOOOOOOOOOOO")
+  fmt.Println(evc.Account)
+  fmt.Println(evc.Project)
+  fmt.Println(evc.Dbnumber)
   fmt.Println(evc.Dimension)
   fmt.Println(evc.Key)
   fmt.Println(evc.Value)
   fmt.Println(evc.CreatedAt)
   fmt.Println(evc.Interval)
   fmt.Println(evc.Calculation)
+
+  myjson, err := json.Marshal(evc)
+  if err != nil {
+    fmt.Println(err)
+    } else {
+      body := string(myjson)
+      fmt.Println(body)
+      if err := rabbit.Publish(uri, exchangeName, exchangeType, routingKey, body, reliable); err != nil {
+        log.Fatalf("%s", err)
+      }
+      log.Printf("published %dB OK", len(body))
+
+    }
 }
 
 func main() {
