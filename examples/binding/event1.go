@@ -12,9 +12,9 @@ import (
 
 var (
 	uri          string = "amqp://guest:guest@localhost:5672/"
-	exchangeName string = "test-exchange"
-	exchangeType string = "direct"
-	routingKey   string = "test-key"
+	exchangeName string = "test.spnee.generic"
+	exchangeType string = "fanout"
+	routingKey   string = ""
 	// body         string = "ralph in socorro"
 	reliable bool = true
 )
