@@ -1,9 +1,9 @@
 package redisc
 
-import "reflect"
 import "fmt"
 import "strconv"
 import "strings"
+import "time"
 import "github.com/garyburd/redigo/redis"
 
 func Get_apkey_from_token(token string) string {
@@ -152,10 +152,6 @@ func Authenticate_admin(admin_token string) bool {
 	redis.String(c.Do("SELECT", tokencfg.Db_admin))
 	uuid, err := redis.Values(c.Do("HGETALL", admin_token))
 
-	fmt.Println("type = ", reflect.TypeOf(uuid))
-
-	fmt.Println("err = ", err)
-
 	if err != nil {
 		fmt.Println("err != nil")
 		return false
@@ -166,7 +162,9 @@ func Authenticate_admin(admin_token string) bool {
 		return false
 	}
 
-	fmt.Println(uuid, " account admin was authenticated")
-	redis.String(c.Do("HSET", admin_token, "timestamp", "timenow goes here"))
+	mytime := time.Now()
+	mytimestr := fmt.Sprintf("<%s>", mytime)
+
+	redis.String(c.Do("HSET", admin_token, "timestamp", mytimestr))
 	return true
 }
