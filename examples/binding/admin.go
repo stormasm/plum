@@ -54,9 +54,25 @@ func token1Handler(resp http.ResponseWriter, req *http.Request) {
 	}
 }
 
+func token2Handler(resp http.ResponseWriter, req *http.Request) {
+	t2 := new(Token2)
+	errs := binding.Bind(req, t2)
+	if errs.Handle(resp) {
+		return
+	}
+	fmt.Println("access_token = ", t2.AccessToken)
+	fmt.Println("account = ", t2.Account)
+	fmt.Println("project = ", t2.Project)
+
+	mybool := redisc.Authenticate_admin(t2.AccessToken)
+	if(mybool) {
+		redisc.Create_account_project(t2.Account,t2.Project)
+	}
+}
+
 func main() {
 	http.HandleFunc("/api/1.0/admin/token", token1Handler)
-	//http.HandleFunc("/api/1.0/admin/account", adminAccountHandler)
+	http.HandleFunc("/api/1.0/admin/account", token2Handler)
 	fmt.Println("Listening on port 4567")
 	http.ListenAndServe(":4567", nil)
 }

@@ -5,6 +5,7 @@ import "strconv"
 import "strings"
 import "time"
 import "github.com/garyburd/redigo/redis"
+import "github.com/stormasm/securerandom"
 
 func Get_apkey_from_token(token string) string {
 	cfg := NewRedisConfig()
@@ -136,6 +137,13 @@ func Create_uuid_account_project(uuidin, account, project string) {
 	} else {
 		fmt.Println("got uuid ", uuid)
 	}
+}
+
+// In the above case you get passed the uuidin
+// For this one you have to create one
+func Create_account_project(account, project string) {
+	myuuid, _ := securerandom.Uuid()
+	Create_uuid_account_project(myuuid, account, project)
 }
 
 func Authenticate_admin(admin_token string) bool {
