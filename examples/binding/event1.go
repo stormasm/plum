@@ -42,8 +42,8 @@ type Event1Customer struct {
 }
 
 type Event1Storm struct {
-	Account     string   `json:"account"`
-	Project     string   `json:"project"`
+	Account     string   `json:"account_id"`
+	Project     string   `json:"project_id"`
 	Dbnumber    string   `json:"dbnumber"`
 	Dimension   string   `json:"dimension"`
 	Key         string   `json:"key"`
