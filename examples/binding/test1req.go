@@ -10,17 +10,21 @@ type ContactForm struct {
 	Message string `json:"message"`
 }
 
-func main() {
+func contactRequest() {
 
-	item := ContactForm{Email: "d@e.edu", Message: "Monday Tuesday"}
+	item := ContactForm{Email: "f@g.edu", Message: "Hola Thursday"}
 
 	res, err := goreq.Request{
 		Method:      "POST",
 		ContentType: "application/json",
-		Uri:         "http://localhost:3000/contact",
+		Uri:         "http://localhost:4567/contact",
 		Body:        item,
 	}.Do()
 
 	fmt.Println(err)
 	fmt.Println(res)
+}
+
+func main() {
+	contactRequest()
 }
