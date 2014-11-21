@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/stormasm/plum/binding"
-	//"github.com/stormasm/plum/redisc"
+	"github.com/stormasm/plum/redisc"
 	"net/http"
 )
 
@@ -47,6 +47,11 @@ func token1Handler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println("token = ", t1.Token)
 	fmt.Println("account = ", t1.Account)
 	fmt.Println("project = ", t1.Project)
+
+	mybool := redisc.Authenticate_admin(t1.AccessToken)
+	if(mybool) {
+		redisc.Create_uuid_account_project(t1.Token,t1.Account,t1.Project)
+	}
 }
 
 func main() {
