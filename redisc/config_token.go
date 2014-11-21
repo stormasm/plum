@@ -12,6 +12,7 @@ type TokenConfig struct {
 	Db_start       string
 	Key_db_next    string
 	Key_db_mapping string
+	Key_rule_primary_key string
 }
 
 func (c *TokenConfig) Dbstart() string {
@@ -28,6 +29,7 @@ func NewTokenConfig() *TokenConfig {
 		Db_start:       "100",
 		Key_db_next:    "nextdb",
 		Key_db_mapping: "hm:accountid:db",
+		Key_rule_primary_key: "rules-primary-key",
 	}
 	return cfg
 }
