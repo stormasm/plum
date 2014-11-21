@@ -1,5 +1,6 @@
 package redisc
 
+import "reflect"
 import "fmt"
 import "strconv"
 import "strings"
@@ -135,4 +136,37 @@ func Create_uuid_account_project(uuidin, account, project string) {
 	} else {
 		fmt.Println("got uuid ", uuid)
 	}
+}
+
+func Authenticate_admin(admin_token string) bool {
+	cfg := NewRedisConfig()
+	connect_string := cfg.Connect_string()
+	c, err := redis.Dial("tcp", connect_string)
+
+	if err != nil {
+		panic(err)
+	}
+	defer c.Close()
+
+	tokencfg := NewTokenConfig()
+	redis.String(c.Do("SELECT", tokencfg.Db_admin))
+	uuid, err := redis.Values(c.Do("HGETALL", admin_token))
+
+	fmt.Println("type = ", reflect.TypeOf(uuid))
+
+	fmt.Println("err = ", err)
+
+	if err != nil {
+		fmt.Println("err != nil")
+		return false
+	}
+
+	if len(uuid) == 0 {
+		fmt.Println("account admin can not be authenticated")
+		return false
+	}
+
+	fmt.Println(uuid, " account admin was authenticated")
+	redis.String(c.Do("HSET", admin_token, "timestamp", "timenow goes here"))
+	return true
 }
