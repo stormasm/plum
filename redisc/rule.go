@@ -1,5 +1,6 @@
 package redisc
 
+import "fmt"
 import "github.com/garyburd/redigo/redis"
 
 func Get_primary_key(dbnumber string) string {
@@ -20,4 +21,10 @@ func Get_primary_key(dbnumber string) string {
 		return "-1"
 	}
 	return primarykey
+}
+
+func Build_rule_key(project, eventype, primarykey string) string {
+	values := []interface{}{"hash:", project, ":", eventype, ":rule:", primarykey}
+	rulekey := fmt.Sprintf("%s%s%s%s%s%s", values...)
+	return rulekey
 }
