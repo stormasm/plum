@@ -56,7 +56,7 @@ func (rc *RuleComparator) FieldMap() binding.FieldMap {
 	}
 }
 
-func (ro *RuleObserver) Set_rule_key_observer(rulekey,dbnumber string) {
+func (ro *RuleObserver) Set_rule_key_observer(dbnumber,rulekey string) {
 	fmt.Println("dimension = ", ro.Dimension)
 	fmt.Println("key = ", ro.Key)
 	fmt.Println("watch = ", ro.Watch)
@@ -64,7 +64,7 @@ func (ro *RuleObserver) Set_rule_key_observer(rulekey,dbnumber string) {
 	fmt.Println("interval = ", ro.Interval)
 }
 
-func (rc *RuleComparator) Set_rule_key_comparator(rulekey,dbnumber string) {
+func (rc *RuleComparator) Set_rule_key_comparator(dbnumber,rulekey string) {
 	fmt.Println("dimension = ", rc.Dimension)
 	fmt.Println("key = ", rc.Key)
 	fmt.Println("calculation = ", rc.Calculation)
@@ -81,7 +81,7 @@ func (ro *RuleObserver) Process_observer() (string,string){
 	fmt.Println("primary key = ", pk)
 	rulekey := redisc.Build_rule_key(ro.Project, "observer", pk)
 	redisc.Process_set_and_interval_key(ro.Project,ro.Interval,rulekey)
-	return rulekey,dbnumber
+	return dbnumber, rulekey
 }
 
 func (rc *RuleComparator) Process_comparator() (string,string){
@@ -92,7 +92,7 @@ func (rc *RuleComparator) Process_comparator() (string,string){
 	fmt.Println("primary key = ", pk)
 	rulekey := redisc.Build_rule_key(rc.Project, "comparator", pk)
 	redisc.Process_set_and_interval_key(rc.Project,rc.Interval,rulekey)
-	return rulekey,dbnumber
+	return dbnumber,rulekey
 }
 
 func ruleObserverHandler(resp http.ResponseWriter, req *http.Request) {
@@ -110,8 +110,8 @@ func ruleObserverHandler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println("trigger = ", observer.Trigger)
 	fmt.Println("interval = ", observer.Interval)
 
-	rulekey, dbnumber := observer.Process_observer()
-	observer.Set_rule_key_observer(rulekey,dbnumber)
+	dbnumber, rulekey := observer.Process_observer()
+	observer.Set_rule_key_observer(dbnumber, rulekey)
 }
 
 func ruleComparatorHandler(resp http.ResponseWriter, req *http.Request) {
@@ -130,8 +130,8 @@ func ruleComparatorHandler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println("operator = ", comparator.Operator)
 	fmt.Println("interval = ", comparator.Interval)
 
-	rulekey, dbnumber := comparator.Process_comparator()
-	comparator.Set_rule_key_comparator(rulekey,dbnumber)
+	dbnumber, rulekey := comparator.Process_comparator()
+	comparator.Set_rule_key_comparator(dbnumber,rulekey)
 }
 
 func main() {
