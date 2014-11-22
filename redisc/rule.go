@@ -28,3 +28,29 @@ func Build_rule_key(project, eventype, primarykey string) string {
 	rulekey := fmt.Sprintf("%s%s%s%s%s%s", values...)
 	return rulekey
 }
+
+func Process_set_key(project,rulekey string) {
+	connect_string := cfg.Connect_string()
+	c, err := redis.Dial("tcp", connect_string)
+	if err != nil {
+		panic(err)
+	}
+	defer c.Close()
+
+	values := []interface{}{"set:", project, ":rules"}
+	setkey := fmt.Sprintf("%s%s%s", values...)
+	redis.String(c.Do("SADD", setkey, rulekey))
+}
+
+func Process_interval_key(project,interval,rulekey string) {
+	connect_string := cfg.Connect_string()
+	c, err := redis.Dial("tcp", connect_string)
+	if err != nil {
+		panic(err)
+	}
+	defer c.Close()
+
+	values := []interface{}{"set:", project, ":rules:", interval}
+	intervalkey := fmt.Sprintf("%s%s%s%s", values...)
+	redis.String(c.Do("SADD", intervalkey, rulekey))
+}
