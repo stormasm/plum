@@ -56,3 +56,8 @@ func Process_interval_key(project,interval,rulekey string) {
 	intervalkey := fmt.Sprintf("%s%s%s%s", values...)
 	redis.String(c.Do("SADD", intervalkey, rulekey))
 }
+
+func Process_set_and_interval_key(project,interval,rulekey string) {
+	Process_set_key(project,rulekey)
+	Process_interval_key(project,interval,rulekey)
+}

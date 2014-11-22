@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/stormasm/plum/binding"
 	//"github.com/stormasm/plum/rabbit"
-	//"github.com/stormasm/plum/redisc"
+	"github.com/stormasm/plum/redisc"
 	//"log"
 	"net/http"
 )
@@ -56,6 +56,26 @@ func (rc *RuleComparator) FieldMap() binding.FieldMap {
 	}
 }
 
+func (ro *RuleObserver) Process_observer() {
+	fmt.Println("account = ", ro.Account)
+	dbnumber := redisc.GetDbNumber_from_account(ro.Account)
+	fmt.Println("dbnumber = ", dbnumber)
+	pk := redisc.Get_primary_key(dbnumber)
+	fmt.Println("primary key = ", pk)
+	rulekey := redisc.Build_rule_key(ro.Project, "observer", pk)
+	redisc.Process_set_and_interval_key(ro.Project,ro.Interval,rulekey)
+}
+
+func (rc *RuleComparator) Process_comparator() {
+	fmt.Println("account = ", rc.Account)
+	dbnumber := redisc.GetDbNumber_from_account(rc.Account)
+	fmt.Println("dbnumber = ", dbnumber)
+	pk := redisc.Get_primary_key(dbnumber)
+	fmt.Println("primary key = ", pk)
+	rulekey := redisc.Build_rule_key(rc.Project, "comparator", pk)
+	redisc.Process_set_and_interval_key(rc.Project,rc.Interval,rulekey)
+}
+
 func ruleObserverHandler(resp http.ResponseWriter, req *http.Request) {
 	observer := new(RuleObserver)
 	errs := binding.Bind(req, observer)
@@ -70,6 +90,8 @@ func ruleObserverHandler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println("watch = ", observer.Watch)
 	fmt.Println("trigger = ", observer.Trigger)
 	fmt.Println("interval = ", observer.Interval)
+
+	observer.Process_observer()
 }
 
 func ruleComparatorHandler(resp http.ResponseWriter, req *http.Request) {
@@ -87,6 +109,8 @@ func ruleComparatorHandler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println("threshold = ", comparator.Threshold)
 	fmt.Println("operator = ", comparator.Operator)
 	fmt.Println("interval = ", comparator.Interval)
+
+	comparator.Process_comparator()
 }
 
 func main() {
