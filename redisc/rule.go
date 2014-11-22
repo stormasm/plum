@@ -61,3 +61,16 @@ func Process_set_and_interval_key(project,interval,rulekey string) {
 	Process_set_key(project,rulekey)
 	Process_interval_key(project,interval,rulekey)
 }
+
+func Set_rule_key(dbnumber,key,field,value string) {
+	cfg := NewRedisConfig()
+	connect_string := cfg.Connect_string()
+	c, err := redis.Dial("tcp", connect_string)
+	if err != nil {
+		panic(err)
+	}
+	defer c.Close()
+
+	redis.String(c.Do("SELECT", dbnumber))
+	redis.String(c.Do("HSET", key, field, value))
+}

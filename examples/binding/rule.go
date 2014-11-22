@@ -56,7 +56,24 @@ func (rc *RuleComparator) FieldMap() binding.FieldMap {
 	}
 }
 
-func (ro *RuleObserver) Process_observer() {
+func (ro *RuleObserver) Set_rule_key_observer(rulekey,dbnumber string) {
+	fmt.Println("dimension = ", ro.Dimension)
+	fmt.Println("key = ", ro.Key)
+	fmt.Println("watch = ", ro.Watch)
+	fmt.Println("trigger = ", ro.Trigger)
+	fmt.Println("interval = ", ro.Interval)
+}
+
+func (rc *RuleComparator) Set_rule_key_comparator(rulekey,dbnumber string) {
+	fmt.Println("dimension = ", rc.Dimension)
+	fmt.Println("key = ", rc.Key)
+	fmt.Println("calculation = ", rc.Calculation)
+	fmt.Println("threshold = ", rc.Threshold)
+	fmt.Println("operator = ", rc.Operator)
+	fmt.Println("interval = ", rc.Interval)
+}
+
+func (ro *RuleObserver) Process_observer() (string,string){
 	fmt.Println("account = ", ro.Account)
 	dbnumber := redisc.GetDbNumber_from_account(ro.Account)
 	fmt.Println("dbnumber = ", dbnumber)
@@ -64,9 +81,10 @@ func (ro *RuleObserver) Process_observer() {
 	fmt.Println("primary key = ", pk)
 	rulekey := redisc.Build_rule_key(ro.Project, "observer", pk)
 	redisc.Process_set_and_interval_key(ro.Project,ro.Interval,rulekey)
+	return rulekey,dbnumber
 }
 
-func (rc *RuleComparator) Process_comparator() {
+func (rc *RuleComparator) Process_comparator() (string,string){
 	fmt.Println("account = ", rc.Account)
 	dbnumber := redisc.GetDbNumber_from_account(rc.Account)
 	fmt.Println("dbnumber = ", dbnumber)
@@ -74,6 +92,7 @@ func (rc *RuleComparator) Process_comparator() {
 	fmt.Println("primary key = ", pk)
 	rulekey := redisc.Build_rule_key(rc.Project, "comparator", pk)
 	redisc.Process_set_and_interval_key(rc.Project,rc.Interval,rulekey)
+	return rulekey,dbnumber
 }
 
 func ruleObserverHandler(resp http.ResponseWriter, req *http.Request) {
@@ -91,7 +110,8 @@ func ruleObserverHandler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println("trigger = ", observer.Trigger)
 	fmt.Println("interval = ", observer.Interval)
 
-	observer.Process_observer()
+	rulekey, dbnumber := observer.Process_observer()
+	observer.Set_rule_key_observer(rulekey,dbnumber)
 }
 
 func ruleComparatorHandler(resp http.ResponseWriter, req *http.Request) {
@@ -110,7 +130,8 @@ func ruleComparatorHandler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println("operator = ", comparator.Operator)
 	fmt.Println("interval = ", comparator.Interval)
 
-	comparator.Process_comparator()
+	rulekey, dbnumber := comparator.Process_comparator()
+	comparator.Set_rule_key_comparator(rulekey,dbnumber)
 }
 
 func main() {
