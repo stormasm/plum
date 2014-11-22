@@ -30,6 +30,7 @@ func Build_rule_key(project, eventype, primarykey string) string {
 }
 
 func Process_set_key(project,rulekey string) {
+	cfg := NewRedisConfig()
 	connect_string := cfg.Connect_string()
 	c, err := redis.Dial("tcp", connect_string)
 	if err != nil {
@@ -43,6 +44,7 @@ func Process_set_key(project,rulekey string) {
 }
 
 func Process_interval_key(project,interval,rulekey string) {
+	cfg := NewRedisConfig()
 	connect_string := cfg.Connect_string()
 	c, err := redis.Dial("tcp", connect_string)
 	if err != nil {

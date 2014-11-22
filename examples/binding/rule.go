@@ -1,12 +1,12 @@
 package main
 
 import (
-	"encoding/json"
+	//"encoding/json"
 	"fmt"
 	"github.com/stormasm/plum/binding"
-	"github.com/stormasm/plum/rabbit"
-	"github.com/stormasm/plum/redisc"
-	"log"
+	//"github.com/stormasm/plum/rabbit"
+	//"github.com/stormasm/plum/redisc"
+	//"log"
 	"net/http"
 )
 
@@ -23,7 +23,7 @@ type RuleObserver struct {
 func (ro *RuleObserver) FieldMap() binding.FieldMap {
 	return binding.FieldMap{
 		&ro.Account:   "account",
-		&ro.Project:   "project"
+		&ro.Project:   "project",
 		&ro.Dimension: "dimension",
 		&ro.Key:       "key",
 		&ro.Watch:     "watch",
@@ -46,7 +46,7 @@ type RuleComparator struct {
 func (rc *RuleComparator) FieldMap() binding.FieldMap {
 	return binding.FieldMap{
 		&rc.Account:     "account",
-		&rc.Project:     "project"
+		&rc.Project:     "project",
 		&rc.Dimension:   "dimension",
 		&rc.Key:         "key",
 		&rc.Calculation: "calculation",
@@ -62,6 +62,7 @@ func ruleObserverHandler(resp http.ResponseWriter, req *http.Request) {
 	if errs.Handle(resp) {
 		return
 	}
+	fmt.Println("--- observer ---")
 	fmt.Println("account = ", observer.Account)
 	fmt.Println("project = ", observer.Project)
 	fmt.Println("dimension = ", observer.Dimension)
@@ -77,55 +78,15 @@ func ruleComparatorHandler(resp http.ResponseWriter, req *http.Request) {
 	if errs.Handle(resp) {
 		return
 	}
-	fmt.Println("account = ", observer.Account)
-	fmt.Println("project = ", observer.Project)
-	fmt.Println("dimension = ", observer.Dimension)
-	fmt.Println("key = ", observer.Key)
-	fmt.Println("calculation = ", observer.Watch)
-	fmt.Println("threshold = ", observer.Trigger)
+	fmt.Println("--- comparator ---")
+	fmt.Println("account = ", comparator.Account)
+	fmt.Println("project = ", comparator.Project)
+	fmt.Println("dimension = ", comparator.Dimension)
+	fmt.Println("key = ", comparator.Key)
+	fmt.Println("calculation = ", comparator.Calculation)
+	fmt.Println("threshold = ", comparator.Threshold)
 	fmt.Println("operator = ", comparator.Operator)
-	fmt.Println("interval = ", observer.Interval)
-}
-
-
-func event1handler(resp http.ResponseWriter, req *http.Request) {
-	event1 := new(Event1Customer)
-	errs := binding.Bind(req, event1)
-	if errs.Handle(resp) {
-		return
-	}
-	fmt.Println("access_token = ", event1.AccessToken)
-	fmt.Println("dimension = ", event1.Dimension)
-	fmt.Println("key = ", event1.Key)
-	fmt.Println("value = ", event1.Value)
-	fmt.Println("created_at = ", event1.CreatedAt)
-	fmt.Println("interval = ", event1.Interval)
-	fmt.Println("calculation = ", event1.Calculation)
-
-	evc := event1.Transform()
-	fmt.Println("OOOOOOOOOOOOO")
-	fmt.Println(evc.Account)
-	fmt.Println(evc.Project)
-	fmt.Println(evc.Dbnumber)
-	fmt.Println(evc.Dimension)
-	fmt.Println(evc.Key)
-	fmt.Println(evc.Value)
-	fmt.Println(evc.CreatedAt)
-	fmt.Println(evc.Interval)
-	fmt.Println(evc.Calculation)
-
-	myjson, err := json.Marshal(evc)
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		body := string(myjson)
-		fmt.Println(body)
-		if err := rabbit.Publish(uri, exchangeName, exchangeType, routingKey, body, reliable); err != nil {
-			log.Fatalf("%s", err)
-		}
-		log.Printf("published %dB OK", len(body))
-
-	}
+	fmt.Println("interval = ", comparator.Interval)
 }
 
 func main() {
