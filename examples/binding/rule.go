@@ -43,29 +43,50 @@ type RuleComparator struct {
 	Interval    string `json:"interval"`
 }
 
-func (ro *RuleComparator) FieldMap() binding.FieldMap {
+func (rc *RuleComparator) FieldMap() binding.FieldMap {
 	return binding.FieldMap{
-		&ro.Account:     "account",
-		&ro.Project:     "project"
-		&ro.Dimension:   "dimension",
-		&ro.Key:         "key",
-		&ro.Calculation: "calculation",
-		&ro.Threshold:   "threshold",
-		&ro.Operator:    "operator",
-		&ro.Interval:    "interval",
+		&rc.Account:     "account",
+		&rc.Project:     "project"
+		&rc.Dimension:   "dimension",
+		&rc.Key:         "key",
+		&rc.Calculation: "calculation",
+		&rc.Threshold:   "threshold",
+		&rc.Operator:    "operator",
+		&rc.Interval:    "interval",
 	}
 }
 
-// Now your handlers can stay clean and simple.
-func contacthandler(resp http.ResponseWriter, req *http.Request) {
-	contactForm := new(ContactForm)
-	errs := binding.Bind(req, contactForm)
+func ruleObserverHandler(resp http.ResponseWriter, req *http.Request) {
+	observer := new(RuleObserver)
+	errs := binding.Bind(req, observer)
 	if errs.Handle(resp) {
 		return
 	}
-	fmt.Println("c email = ", contactForm.Email)
-	fmt.Println("c message = ", contactForm.Message)
+	fmt.Println("account = ", observer.Account)
+	fmt.Println("project = ", observer.Project)
+	fmt.Println("dimension = ", observer.Dimension)
+	fmt.Println("key = ", observer.Key)
+	fmt.Println("watch = ", observer.Watch)
+	fmt.Println("trigger = ", observer.Trigger)
+	fmt.Println("interval = ", observer.Interval)
 }
+
+func ruleComparatorHandler(resp http.ResponseWriter, req *http.Request) {
+	comparator := new(RuleComparator)
+	errs := binding.Bind(req, comparator)
+	if errs.Handle(resp) {
+		return
+	}
+	fmt.Println("account = ", observer.Account)
+	fmt.Println("project = ", observer.Project)
+	fmt.Println("dimension = ", observer.Dimension)
+	fmt.Println("key = ", observer.Key)
+	fmt.Println("calculation = ", observer.Watch)
+	fmt.Println("threshold = ", observer.Trigger)
+	fmt.Println("operator = ", comparator.Operator)
+	fmt.Println("interval = ", observer.Interval)
+}
+
 
 func event1handler(resp http.ResponseWriter, req *http.Request) {
 	event1 := new(Event1Customer)
