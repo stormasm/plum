@@ -58,19 +58,39 @@ func (rc *RuleComparator) FieldMap() binding.FieldMap {
 
 func (ro *RuleObserver) Set_rule_key_observer(dbnumber,rulekey string) {
 	fmt.Println("dimension = ", ro.Dimension)
+	redisc.Set_rule_key(dbnumber,rulekey,"dimension",ro.Dimension)
+
 	fmt.Println("key = ", ro.Key)
+	redisc.Set_rule_key(dbnumber,rulekey,"key",ro.Key)
+
 	fmt.Println("watch = ", ro.Watch)
+	redisc.Set_rule_key(dbnumber,rulekey,"watch",ro.Watch)
+
 	fmt.Println("trigger = ", ro.Trigger)
+	redisc.Set_rule_key(dbnumber,rulekey,"trigger",ro.Trigger)
+
 	fmt.Println("interval = ", ro.Interval)
+	redisc.Set_rule_key(dbnumber,rulekey,"interval",ro.Interval)
 }
 
 func (rc *RuleComparator) Set_rule_key_comparator(dbnumber,rulekey string) {
 	fmt.Println("dimension = ", rc.Dimension)
+	redisc.Set_rule_key(dbnumber,rulekey,"dimension",rc.Dimension)
+
 	fmt.Println("key = ", rc.Key)
+	redisc.Set_rule_key(dbnumber,rulekey,"key",rc.Key)
+
 	fmt.Println("calculation = ", rc.Calculation)
+	redisc.Set_rule_key(dbnumber,rulekey,"calculation",rc.Calculation)
+
 	fmt.Println("threshold = ", rc.Threshold)
+	redisc.Set_rule_key(dbnumber,rulekey,"threshold",rc.Threshold)
+
 	fmt.Println("operator = ", rc.Operator)
+	redisc.Set_rule_key(dbnumber,rulekey,"operator",rc.Operator)
+
 	fmt.Println("interval = ", rc.Interval)
+	redisc.Set_rule_key(dbnumber,rulekey,"interval",rc.Interval)
 }
 
 func (ro *RuleObserver) Process_observer() (string,string){
