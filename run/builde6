@@ -6,4 +6,4 @@ cd examples/redis
 #go run test1.go
 #go run test2.go
 #go run token.go
-go run rule.go
+go run event.go
