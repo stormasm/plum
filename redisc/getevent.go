@@ -31,30 +31,23 @@ func Get_calculated_data(dbnumber,project,dimension,key,calculation,interval str
 	}
 	defer c.Close()
 
-	//tokencfg := NewTokenConfig()
 	redis.String(c.Do("SELECT", dbnumber))
 	hashkey := Build_hash_key(project,dimension,key,calculation,interval)
 	fmt.Println(dbnumber, " ", hashkey)
 	values, err := redis.Values(c.Do("HGETALL", hashkey))
 
-/*
-	values, err := redis.Values(c.Do("SORT", "albums",
-	"BY", "album:*->rating",
-	"GET", "album:*->title",
-	"GET", "album:*->rating"))
-*/
 	if err != nil {
 		panic(err)
 	}
 
-	var albums []struct {
-		Title  string
-		Rating string
+	var hmap []struct {
+		Date  string
+		Value string
 	}
-	if err := redis.ScanSlice(values, &albums); err != nil {
+	if err := redis.ScanSlice(values, &hmap); err != nil {
 		panic(err)
 	}
-	fmt.Printf("%v\n", albums)
+	fmt.Printf("%v\n", hmap)
 	// Output:
 	// [{Earthbound 1} {Beat 4} {Red 5}]
 
