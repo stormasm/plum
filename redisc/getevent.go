@@ -50,27 +50,6 @@ func Get_calculated_data(dbnumber,project,dimension,key,calculation,interval str
 	fmt.Printf("%v\n", hmap)
 	// Output:
 	// [{Earthbound 1} {Beat 4} {Red 5}]
-
-
-
-
-
-
-
-
-
-
-/*
-	if err != nil {
-		fmt.Println("err != nil")
-	}
-
-	if len(hashmap) == 0 {
-		fmt.Println("hashmap has zero length")
-	}
-
-	fmt.Println(hashmap)
-*/
 }
 
 /* get calculated data
