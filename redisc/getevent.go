@@ -34,9 +34,40 @@ func Get_calculated_data(dbnumber,project,dimension,key,calculation,interval str
 	//tokencfg := NewTokenConfig()
 	redis.String(c.Do("SELECT", dbnumber))
 	hashkey := Build_hash_key(project,dimension,key,calculation,interval)
-	fmt.Println(hashkey)
-	hashmap, err := redis.Values(c.Do("HGETALL", hashkey))
+	fmt.Println(dbnumber, " ", hashkey)
+	values, err := redis.Values(c.Do("HGETALL", hashkey))
 
+/*
+	values, err := redis.Values(c.Do("SORT", "albums",
+	"BY", "album:*->rating",
+	"GET", "album:*->title",
+	"GET", "album:*->rating"))
+*/
+	if err != nil {
+		panic(err)
+	}
+
+	var albums []struct {
+		Title  string
+		Rating string
+	}
+	if err := redis.ScanSlice(values, &albums); err != nil {
+		panic(err)
+	}
+	fmt.Printf("%v\n", albums)
+	// Output:
+	// [{Earthbound 1} {Beat 4} {Red 5}]
+
+
+
+
+
+
+
+
+
+
+/*
 	if err != nil {
 		fmt.Println("err != nil")
 	}
@@ -46,6 +77,7 @@ func Get_calculated_data(dbnumber,project,dimension,key,calculation,interval str
 	}
 
 	fmt.Println(hashmap)
+*/
 }
 
 /* get calculated data

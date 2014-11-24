@@ -5,12 +5,16 @@ import "github.com/stormasm/plum/redisc"
 
 func main() {
   dbnumber := "100"
-  project := "1"
+  project := "2"
   dimension := "job-skills"
-  key := "ruby"
+  key := "java"
   calculation := "sum"
-  interval := "months"
+  interval := "weeks"
 
   redisc.Get_calculated_data(dbnumber,project,dimension,key,calculation,interval)
-  //fmt.Println("hashmap = ", hashmap)
+
+  calculation = "count"
+  interval = "hours"
+
+  redisc.Get_calculated_data(dbnumber,project,dimension,key,calculation,interval)
 }
