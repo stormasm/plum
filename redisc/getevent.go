@@ -1,5 +1,6 @@
 package redisc
 
+import "encoding/json"
 import "fmt"
 import "github.com/garyburd/redigo/redis"
 
@@ -23,6 +24,36 @@ func Build_set_key(project, dimension, key string) string {
 }
 
 func Get_calculated_data(dbnumber,project,dimension,key,calculation,interval string) {
+	cfg := NewRedisConfig()
+	connect_string := cfg.Connect_string()
+	c, err := redis.Dial("tcp", connect_string)
+	if err != nil {
+		panic(err)
+	}
+	defer c.Close()
+
+	redis.String(c.Do("SELECT", dbnumber))
+	hashkey := Build_hash_key(project,dimension,key,calculation,interval)
+	fmt.Println(dbnumber, " ", hashkey)
+	strings, err := redis.Strings(c.Do("HGETALL", hashkey))
+
+	if err != nil {
+		panic(err)
+	}
+
+	b, err := json.Marshal(strings)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(b))
+}
+
+// This function is currently not being used
+// It is here for reference only as a way to get
+// data via Values instead of Strings
+func Get_calculated_data_values(dbnumber,project,dimension,key,calculation,interval string) {
 	cfg := NewRedisConfig()
 	connect_string := cfg.Connect_string()
 	c, err := redis.Dial("tcp", connect_string)
