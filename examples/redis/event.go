@@ -15,7 +15,8 @@ func main() {
   calculation = "count"
   interval = "hours"
 
-  redisc.Get_calculated_data(dbnumber,project,dimension,key,calculation,interval)
-  result := redisc.Get_event_data(dbnumber,project,dimension,key)
+  result := redisc.Get_calculated_data(dbnumber,project,dimension,key,calculation,interval)
+  fmt.Println(result)
+  result = redisc.Get_event_data(dbnumber,project,dimension,key)
   fmt.Println(result)
 }
