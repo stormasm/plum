@@ -5,6 +5,27 @@ import "fmt"
 import "strconv"
 import "github.com/garyburd/redigo/redis"
 
+func Getpairs(args ...string) string {
+
+	mymap := make(map[string]string)
+
+	for i := range args {
+		switch {
+			case i%2 == 0:
+			mymap[args[i]] = args[i+1]
+			default:
+			//
+		}
+	}
+
+	str, err := json.Marshal(mymap)
+	if err != nil {
+		return ("Error encoding JSON")
+	}
+
+	myjson := string(str)
+	return myjson
+}
 
 func Build_hash_key(project, dimension, key, calculation, interval string) string {
 	values := []interface{}{"hash:", project, ":", dimension, ":", key, ":", calculation, ":", interval}
@@ -100,7 +121,7 @@ func Get_event_data(dbnumber,project,dimension,key string) string {
 
 	if err != nil {
 		fmt.Println(err)
-		return("Error getting primarykeys")
+		return("Get_event_data redis error getting primarykeys")
 	}
 
 	if len(primarykeys) < 1 {
@@ -117,7 +138,7 @@ func Get_event_data(dbnumber,project,dimension,key string) string {
 
 		if err != nil {
 			fmt.Println(err)
-			return("Error getting hashkey")
+			return("Get_event_data redis error getting hashkey")
 		}
 
 		fmt.Println(hashkey)
