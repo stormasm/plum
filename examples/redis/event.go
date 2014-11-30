@@ -12,9 +12,9 @@ func main() {
   calculation := "sum"
   interval := "weeks"
 
-  //calculation = "count"
-  //interval = "hours"
+  calculation = "count"
+  interval = "hours"
 
   redisc.Get_calculated_data(dbnumber,project,dimension,key,calculation,interval)
-  // redisc.Get_event_data(dbnumber,project,dimension,key)
+  redisc.Get_event_data(dbnumber,project,dimension,key)
 }
