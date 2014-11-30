@@ -2,6 +2,7 @@ package redisc
 
 import "encoding/json"
 import "fmt"
+import "strconv"
 import "github.com/garyburd/redigo/redis"
 
 
@@ -107,6 +108,21 @@ func Get_event_data(dbnumber,project,dimension,key string) string {
 	}
 
 	fmt.Printf("%v\n", primarykeys)
+
+	for pk := range primarykeys {
+		fmt.Println(pk)
+		pkstr := strconv.Itoa(pk)
+		hashkey := Build_primary_key(project, dimension, key, pkstr)
+		strings, err := redis.Strings(c.Do("HGETALL", hashkey))
+
+		if err != nil {
+			fmt.Println(err)
+			return("Error getting hashkey")
+		}
+
+		fmt.Println(hashkey)
+		fmt.Println(strings)
+	}
 
 	return "OK"
 }
