@@ -83,7 +83,7 @@ func Get_calculated_data_values(dbnumber,project,dimension,key,calculation,inter
 	// [{Earthbound 1} {Beat 4} {Red 5}]
 }
 
-func Get_event_data(dbnumber,project,dimension,key string) {
+func Get_event_data(dbnumber,project,dimension,key string) string {
 	cfg := NewRedisConfig()
 	connect_string := cfg.Connect_string()
 	c, err := redis.Dial("tcp", connect_string)
@@ -98,13 +98,15 @@ func Get_event_data(dbnumber,project,dimension,key string) {
 	primarykeys, err := redis.Strings(c.Do("SMEMBERS", setkey))
 
 	if err != nil {
-		// return "", err
 		fmt.Println(err)
+		return("Error getting primarykeys")
 	}
-/*
-	if len(primarykeys) != 1 {
-		return "", redis.ErrNil
+
+	if len(primarykeys) < 1 {
+		return "No primary keys"
 	}
-*/
+
 	fmt.Printf("%v\n", primarykeys)
+
+	return "OK"
 }
