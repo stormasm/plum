@@ -1,6 +1,6 @@
 package main
 
-//import "fmt"
+import "fmt"
 import "github.com/stormasm/plum/redisc"
 
 func main() {
@@ -16,5 +16,6 @@ func main() {
   interval = "hours"
 
   redisc.Get_calculated_data(dbnumber,project,dimension,key,calculation,interval)
-  redisc.Get_event_data(dbnumber,project,dimension,key)
+  result := redisc.Get_event_data(dbnumber,project,dimension,key)
+  fmt.Println(result)
 }

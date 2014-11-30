@@ -5,7 +5,7 @@ import "fmt"
 import "strconv"
 import "github.com/garyburd/redigo/redis"
 
-func Getpairs(args ...string) string {
+func getpairs(sa []string, args ...string) ([]string, error) {
 
 	mymap := make(map[string]string)
 
@@ -20,11 +20,14 @@ func Getpairs(args ...string) string {
 
 	str, err := json.Marshal(mymap)
 	if err != nil {
-		return ("Error encoding JSON")
+		return nil, fmt.Errorf("getpairs error encoding JSON")
 	}
 
 	myjson := string(str)
-	return myjson
+
+	sa = append(sa, myjson)
+	sa = append(sa, ",")
+	return sa, nil
 }
 
 func Build_hash_key(project, dimension, key, calculation, interval string) string {
@@ -130,11 +133,13 @@ func Get_event_data(dbnumber,project,dimension,key string) string {
 
 	fmt.Printf("%v\n", primarykeys)
 
+	sa := make([]string, 0)
+
 	for pk := range primarykeys {
 		fmt.Println(pk)
 		pkstr := strconv.Itoa(pk)
 		hashkey := Build_primary_key(project, dimension, key, pkstr)
-		strings, err := redis.Strings(c.Do("HGETALL", hashkey))
+		hstrings, err := redis.Strings(c.Do("HGETALL", hashkey))
 
 		if err != nil {
 			fmt.Println(err)
@@ -142,8 +147,10 @@ func Get_event_data(dbnumber,project,dimension,key string) string {
 		}
 
 		fmt.Println(hashkey)
-		fmt.Println(strings)
+		fmt.Println(hstrings)
+		sa, err = getpairs(sa, hstrings...)
 	}
 
-	return "OK"
+	result := fmt.Sprintf("%s", sa)
+	return result
 }
