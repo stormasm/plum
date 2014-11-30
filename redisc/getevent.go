@@ -66,15 +66,10 @@ func Get_calculated_data(dbnumber,project,dimension,key,calculation,interval str
 		panic(err)
 	}
 
-	b, err := json.Marshal(hstrings)
-
-	if err != nil {
-		panic(err)
-	}
-
-	result := string(b)
-	fmt.Println(result)
-	return(result)
+	sa := make([]string, 0)
+	sa, err = getpairs(sa, hstrings...)
+	result := fmt.Sprintf("%s", sa)
+	return result
 }
 
 func Get_event_data(dbnumber,project,dimension,key string) string {
