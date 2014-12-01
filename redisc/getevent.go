@@ -1,34 +1,8 @@
 package redisc
 
-import "encoding/json"
 import "fmt"
 import "strconv"
 import "github.com/garyburd/redigo/redis"
-
-func getpairs(sa []string, args ...string) ([]string, error) {
-
-	mymap := make(map[string]string)
-
-	for i := range args {
-		switch {
-			case i%2 == 0:
-			mymap[args[i]] = args[i+1]
-			default:
-			//
-		}
-	}
-
-	str, err := json.Marshal(mymap)
-	if err != nil {
-		return nil, fmt.Errorf("getpairs error encoding JSON")
-	}
-
-	myjson := string(str)
-
-	sa = append(sa, myjson)
-	sa = append(sa, ",")
-	return sa, nil
-}
 
 func Build_hash_key(project, dimension, key, calculation, interval string) string {
 	values := []interface{}{"hash:", project, ":", dimension, ":", key, ":", calculation, ":", interval}
@@ -48,7 +22,7 @@ func Build_set_key(project, dimension, key string) string {
 	return setkey
 }
 
-func Get_calculated_data(dbnumber,project,dimension,key,calculation,interval string) string {
+func Get_calculated_data(dbnumber, project, dimension, key, calculation, interval string) string {
 	cfg := NewRedisConfig()
 	connect_string := cfg.Connect_string()
 	c, err := redis.Dial("tcp", connect_string)
@@ -58,7 +32,7 @@ func Get_calculated_data(dbnumber,project,dimension,key,calculation,interval str
 	defer c.Close()
 
 	redis.String(c.Do("SELECT", dbnumber))
-	hashkey := Build_hash_key(project,dimension,key,calculation,interval)
+	hashkey := Build_hash_key(project, dimension, key, calculation, interval)
 	fmt.Println(dbnumber, " ", hashkey)
 	hstrings, err := redis.Strings(c.Do("HGETALL", hashkey))
 
@@ -72,7 +46,7 @@ func Get_calculated_data(dbnumber,project,dimension,key,calculation,interval str
 	return result
 }
 
-func Get_event_data(dbnumber,project,dimension,key string) string {
+func Get_event_data(dbnumber, project, dimension, key string) string {
 	cfg := NewRedisConfig()
 	connect_string := cfg.Connect_string()
 	c, err := redis.Dial("tcp", connect_string)
@@ -82,13 +56,13 @@ func Get_event_data(dbnumber,project,dimension,key string) string {
 	defer c.Close()
 
 	redis.String(c.Do("SELECT", dbnumber))
-	setkey := Build_set_key(project,dimension,key)
+	setkey := Build_set_key(project, dimension, key)
 
 	primarykeys, err := redis.Strings(c.Do("SMEMBERS", setkey))
 
 	if err != nil {
 		fmt.Println(err)
-		return("Get_event_data redis error getting primarykeys")
+		return ("Get_event_data redis error getting primarykeys")
 	}
 
 	if len(primarykeys) < 1 {
@@ -107,7 +81,7 @@ func Get_event_data(dbnumber,project,dimension,key string) string {
 
 		if err != nil {
 			fmt.Println(err)
-			return("Get_event_data redis error getting hashkey")
+			return ("Get_event_data redis error getting hashkey")
 		}
 
 		fmt.Println(hashkey)

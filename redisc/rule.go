@@ -29,7 +29,7 @@ func Build_rule_key(project, eventype, primarykey string) string {
 	return rulekey
 }
 
-func Process_set_key(project,rulekey string) {
+func Process_set_key(project, rulekey string) {
 	cfg := NewRedisConfig()
 	connect_string := cfg.Connect_string()
 	c, err := redis.Dial("tcp", connect_string)
@@ -43,7 +43,7 @@ func Process_set_key(project,rulekey string) {
 	redis.String(c.Do("SADD", setkey, rulekey))
 }
 
-func Process_interval_key(project,interval,rulekey string) {
+func Process_interval_key(project, interval, rulekey string) {
 	cfg := NewRedisConfig()
 	connect_string := cfg.Connect_string()
 	c, err := redis.Dial("tcp", connect_string)
@@ -57,12 +57,12 @@ func Process_interval_key(project,interval,rulekey string) {
 	redis.String(c.Do("SADD", intervalkey, rulekey))
 }
 
-func Process_set_and_interval_key(project,interval,rulekey string) {
-	Process_set_key(project,rulekey)
-	Process_interval_key(project,interval,rulekey)
+func Process_set_and_interval_key(project, interval, rulekey string) {
+	Process_set_key(project, rulekey)
+	Process_interval_key(project, interval, rulekey)
 }
 
-func Set_rule_key(dbnumber,key,field,value string) {
+func Set_rule_key(dbnumber, key, field, value string) {
 	cfg := NewRedisConfig()
 	connect_string := cfg.Connect_string()
 	c, err := redis.Dial("tcp", connect_string)
