@@ -33,7 +33,7 @@ func Get_calculated_data(dbnumber, project, dimension, key, calculation, interva
 
 	redis.String(c.Do("SELECT", dbnumber))
 	hashkey := Build_hash_key(project, dimension, key, calculation, interval)
-	fmt.Println(dbnumber, " ", hashkey)
+	//fmt.Println(dbnumber, " ", hashkey)
 	hstrings, err := redis.Strings(c.Do("HGETALL", hashkey))
 
 	if err != nil {
@@ -69,12 +69,12 @@ func Get_event_data(dbnumber, project, dimension, key string) string {
 		return "No primary keys"
 	}
 
-	fmt.Printf("%v\n", primarykeys)
+	//fmt.Printf("%v\n", primarykeys)
 
 	sa := make([]string, 0)
 
 	for pk := range primarykeys {
-		fmt.Println(pk)
+		//fmt.Println(pk)
 		pkstr := strconv.Itoa(pk)
 		hashkey := Build_primary_key(project, dimension, key, pkstr)
 		hstrings, err := redis.Strings(c.Do("HGETALL", hashkey))
@@ -84,8 +84,8 @@ func Get_event_data(dbnumber, project, dimension, key string) string {
 			return ("Get_event_data redis error getting hashkey")
 		}
 
-		fmt.Println(hashkey)
-		fmt.Println(hstrings)
+		//fmt.Println(hashkey)
+		//fmt.Println(hstrings)
 		sa, err = getpairs(sa, hstrings...)
 	}
 
