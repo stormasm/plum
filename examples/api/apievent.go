@@ -37,4 +37,21 @@ func main() {
 
   fmt.Println(err1, res1)
 
+  res2, err2 := goreq.Request{
+    Method: "GET",
+    ContentType: "application/json",
+    Uri: "http://localhost:4567/api/1.0/event/job-skills/python",
+    //Body: item1,
+    }.Do()
+
+  fmt.Println(err2, res2)
+
+  res3, err3 := goreq.Request{
+      Method: "GET",
+      ContentType: "application/json",
+      Uri: "http://localhost:4567/api/1.0/event/job-skills/go/sum/months",
+      //Body: item1,
+      }.Do()
+
+    fmt.Println(err3, res3)
 }

@@ -2,5 +2,10 @@
 #
 
 source ./run/z
-cd examples/api
-go run apiadmin.go
+
+#cd examples/api
+#go run apiadmin.go
+#go run apievent.go
+
+cd examples/binding
+go run contactreq.go

@@ -3,6 +3,6 @@
 
 source ./run/z
 cd examples/binding
-#go run event.go
+go run event.go
 #go run admin.go
-go run rule.go
+#go run rule.go
