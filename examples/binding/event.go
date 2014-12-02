@@ -146,6 +146,12 @@ func event_data_handler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println(values)
 	mytoken := values["access_token"][0]
 	fmt.Println(mytoken)
+	apkey := redisc.Get_apkey_from_token(mytoken)
+	account := redisc.Get_account_from_apkey(apkey)
+	project := redisc.Get_project_from_apkey(apkey)
+	dbnumber := redisc.GetDbNumber_from_account(account)
+	json := redisc.Get_event_data(dbnumber, project, dimension, key)
+	fmt.Println(json)
 }
 
 func calculated_data_handler(resp http.ResponseWriter, req *http.Request) {
@@ -162,6 +168,12 @@ func calculated_data_handler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println(values)
 	mytoken := values["access_token"][0]
 	fmt.Println(mytoken)
+	apkey := redisc.Get_apkey_from_token(mytoken)
+	account := redisc.Get_account_from_apkey(apkey)
+	project := redisc.Get_project_from_apkey(apkey)
+	dbnumber := redisc.GetDbNumber_from_account(account)
+	json := redisc.Get_event_data(dbnumber, project, dimension, key)
+	fmt.Println(json)
 }
 
 func main() {
