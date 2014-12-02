@@ -172,7 +172,7 @@ func calculated_data_handler(resp http.ResponseWriter, req *http.Request) {
 	account := redisc.Get_account_from_apkey(apkey)
 	project := redisc.Get_project_from_apkey(apkey)
 	dbnumber := redisc.GetDbNumber_from_account(account)
-	json := redisc.Get_event_data(dbnumber, project, dimension, key)
+	json := redisc.Get_calculated_data(dbnumber, project, dimension, key, calculation, interval)
 	fmt.Println(json)
 }
 
