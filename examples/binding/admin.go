@@ -8,32 +8,32 @@ import (
 )
 
 type Token1 struct {
-	AccessToken  string `json:"access_token"`
-	Token string `json:"token"`
-	Account string `json:"account"`
-	Project string `json:"project"`
+	AccessToken string `json:"access_token"`
+	Token       string `json:"token"`
+	Account     string `json:"account"`
+	Project     string `json:"project"`
 }
 
 type Token2 struct {
-	AccessToken  string `json:"access_token"`
-	Account string `json:"account"`
-	Project string `json:"project"`
+	AccessToken string `json:"access_token"`
+	Account     string `json:"account"`
+	Project     string `json:"project"`
 }
 
 func (t1 *Token1) FieldMap() binding.FieldMap {
 	return binding.FieldMap{
 		&t1.AccessToken: "access_token",
-		&t1.Token: "token",
-		&t1.Account: "account",
-		&t1.Project: "project",
+		&t1.Token:       "token",
+		&t1.Account:     "account",
+		&t1.Project:     "project",
 	}
 }
 
 func (t2 *Token2) FieldMap() binding.FieldMap {
 	return binding.FieldMap{
 		&t2.AccessToken: "access_token",
-		&t2.Account: "account",
-		&t2.Project: "project",
+		&t2.Account:     "account",
+		&t2.Project:     "project",
 	}
 }
 
@@ -49,8 +49,8 @@ func token1Handler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println("project = ", t1.Project)
 
 	mybool := redisc.Authenticate_admin(t1.AccessToken)
-	if(mybool) {
-		redisc.Create_uuid_account_project(t1.Token,t1.Account,t1.Project)
+	if mybool {
+		redisc.Create_uuid_account_project(t1.Token, t1.Account, t1.Project)
 	}
 }
 
@@ -65,8 +65,8 @@ func token2Handler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println("project = ", t2.Project)
 
 	mybool := redisc.Authenticate_admin(t2.AccessToken)
-	if(mybool) {
-		redisc.Create_account_project(t2.Account,t2.Project)
+	if mybool {
+		redisc.Create_account_project(t2.Account, t2.Project)
 	}
 }
 

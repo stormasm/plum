@@ -3,12 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/stormasm/mux"
 	"github.com/stormasm/plum/binding"
 	"github.com/stormasm/plum/rabbit"
 	"github.com/stormasm/plum/redisc"
 	"log"
 	"net/http"
-	"github.com/stormasm/mux"
 )
 
 var (
@@ -142,6 +142,10 @@ func event_data_handler(resp http.ResponseWriter, req *http.Request) {
 	key := vars["key"]
 	fmt.Println("dimension", dimension)
 	fmt.Println("key", key)
+	values := req.URL.Query()
+	fmt.Println(values)
+	mytoken := values["access_token"][0]
+	fmt.Println(mytoken)
 }
 
 func calculated_data_handler(resp http.ResponseWriter, req *http.Request) {
@@ -154,6 +158,10 @@ func calculated_data_handler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println("key", key)
 	fmt.Println("calculation", calculation)
 	fmt.Println("interval", interval)
+	values := req.URL.Query()
+	fmt.Println(values)
+	mytoken := values["access_token"][0]
+	fmt.Println(mytoken)
 }
 
 func main() {

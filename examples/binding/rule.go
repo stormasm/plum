@@ -11,13 +11,13 @@ import (
 )
 
 type RuleObserver struct {
-	Account   string  `json:"account"`
-	Project   string  `json:"project"`
-	Dimension string  `json:"dimension"`
-	Key       string  `json:"key"`
-	Watch     string  `json:"watch"`
-	Trigger   string  `json:"trigger"`
-	Interval  string  `json:"interval"`
+	Account   string `json:"account"`
+	Project   string `json:"project"`
+	Dimension string `json:"dimension"`
+	Key       string `json:"key"`
+	Watch     string `json:"watch"`
+	Trigger   string `json:"trigger"`
+	Interval  string `json:"interval"`
 }
 
 func (ro *RuleObserver) FieldMap() binding.FieldMap {
@@ -56,63 +56,63 @@ func (rc *RuleComparator) FieldMap() binding.FieldMap {
 	}
 }
 
-func (ro *RuleObserver) Set_rule_key_observer(dbnumber,rulekey string) {
+func (ro *RuleObserver) Set_rule_key_observer(dbnumber, rulekey string) {
 	fmt.Println("dimension = ", ro.Dimension)
-	redisc.Set_rule_key(dbnumber,rulekey,"dimension",ro.Dimension)
+	redisc.Set_rule_key(dbnumber, rulekey, "dimension", ro.Dimension)
 
 	fmt.Println("key = ", ro.Key)
-	redisc.Set_rule_key(dbnumber,rulekey,"key",ro.Key)
+	redisc.Set_rule_key(dbnumber, rulekey, "key", ro.Key)
 
 	fmt.Println("watch = ", ro.Watch)
-	redisc.Set_rule_key(dbnumber,rulekey,"watch",ro.Watch)
+	redisc.Set_rule_key(dbnumber, rulekey, "watch", ro.Watch)
 
 	fmt.Println("trigger = ", ro.Trigger)
-	redisc.Set_rule_key(dbnumber,rulekey,"trigger",ro.Trigger)
+	redisc.Set_rule_key(dbnumber, rulekey, "trigger", ro.Trigger)
 
 	fmt.Println("interval = ", ro.Interval)
-	redisc.Set_rule_key(dbnumber,rulekey,"interval",ro.Interval)
+	redisc.Set_rule_key(dbnumber, rulekey, "interval", ro.Interval)
 }
 
-func (rc *RuleComparator) Set_rule_key_comparator(dbnumber,rulekey string) {
+func (rc *RuleComparator) Set_rule_key_comparator(dbnumber, rulekey string) {
 	fmt.Println("dimension = ", rc.Dimension)
-	redisc.Set_rule_key(dbnumber,rulekey,"dimension",rc.Dimension)
+	redisc.Set_rule_key(dbnumber, rulekey, "dimension", rc.Dimension)
 
 	fmt.Println("key = ", rc.Key)
-	redisc.Set_rule_key(dbnumber,rulekey,"key",rc.Key)
+	redisc.Set_rule_key(dbnumber, rulekey, "key", rc.Key)
 
 	fmt.Println("calculation = ", rc.Calculation)
-	redisc.Set_rule_key(dbnumber,rulekey,"calculation",rc.Calculation)
+	redisc.Set_rule_key(dbnumber, rulekey, "calculation", rc.Calculation)
 
 	fmt.Println("threshold = ", rc.Threshold)
-	redisc.Set_rule_key(dbnumber,rulekey,"threshold",rc.Threshold)
+	redisc.Set_rule_key(dbnumber, rulekey, "threshold", rc.Threshold)
 
 	fmt.Println("operator = ", rc.Operator)
-	redisc.Set_rule_key(dbnumber,rulekey,"operator",rc.Operator)
+	redisc.Set_rule_key(dbnumber, rulekey, "operator", rc.Operator)
 
 	fmt.Println("interval = ", rc.Interval)
-	redisc.Set_rule_key(dbnumber,rulekey,"interval",rc.Interval)
+	redisc.Set_rule_key(dbnumber, rulekey, "interval", rc.Interval)
 }
 
-func (ro *RuleObserver) Process_observer() (string,string){
+func (ro *RuleObserver) Process_observer() (string, string) {
 	fmt.Println("account = ", ro.Account)
 	dbnumber := redisc.GetDbNumber_from_account(ro.Account)
 	fmt.Println("dbnumber = ", dbnumber)
 	pk := redisc.Get_primary_key(dbnumber)
 	fmt.Println("primary key = ", pk)
 	rulekey := redisc.Build_rule_key(ro.Project, "observer", pk)
-	redisc.Process_set_and_interval_key(ro.Project,ro.Interval,rulekey)
+	redisc.Process_set_and_interval_key(ro.Project, ro.Interval, rulekey)
 	return dbnumber, rulekey
 }
 
-func (rc *RuleComparator) Process_comparator() (string,string){
+func (rc *RuleComparator) Process_comparator() (string, string) {
 	fmt.Println("account = ", rc.Account)
 	dbnumber := redisc.GetDbNumber_from_account(rc.Account)
 	fmt.Println("dbnumber = ", dbnumber)
 	pk := redisc.Get_primary_key(dbnumber)
 	fmt.Println("primary key = ", pk)
 	rulekey := redisc.Build_rule_key(rc.Project, "comparator", pk)
-	redisc.Process_set_and_interval_key(rc.Project,rc.Interval,rulekey)
-	return dbnumber,rulekey
+	redisc.Process_set_and_interval_key(rc.Project, rc.Interval, rulekey)
+	return dbnumber, rulekey
 }
 
 func ruleObserverHandler(resp http.ResponseWriter, req *http.Request) {
@@ -151,7 +151,7 @@ func ruleComparatorHandler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println("interval = ", comparator.Interval)
 
 	dbnumber, rulekey := comparator.Process_comparator()
-	comparator.Set_rule_key_comparator(dbnumber,rulekey)
+	comparator.Set_rule_key_comparator(dbnumber, rulekey)
 }
 
 func main() {
