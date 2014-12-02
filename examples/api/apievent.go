@@ -38,14 +38,17 @@ func main() {
 
 	fmt.Println(err1, res1)
 
-	item := url.Values{}
-	item.Set("access_token", "28037e39-456d-49e4-998a-17c48ce916aa")
+	item2 := url.Values{}
+	item2.Set("access_token", "28037e39-456d-49e4-998a-17c48ce916aa")
+
+	item3 := url.Values{}
+	item3.Set("access_token", "15f32255-aaeb-4d2f-8988-26494bc4d58d")
 
 	res2, err2 := goreq.Request{
 		Method:      "GET",
 		ContentType: "application/json",
 		Uri:         "http://localhost:4567/api/1.0/event/job-skills/python",
-		QueryString: item,
+		QueryString: item2,
 	}.Do()
 
 	fmt.Println(err2, res2)
@@ -53,8 +56,8 @@ func main() {
 	res3, err3 := goreq.Request{
 		Method:      "GET",
 		ContentType: "application/json",
-		Uri:         "http://localhost:4567/api/1.0/event/job-skills/go/sum/months",
-		QueryString: item,
+		Uri:         "http://localhost:4567/api/1.0/event/job-skills/java/sum/weeks",
+		QueryString: item3,
 	}.Do()
 
 	fmt.Println(err3, res3)
