@@ -8,6 +8,7 @@ import (
 	"github.com/stormasm/plum/redisc"
 	"log"
 	"net/http"
+	"github.com/stormasm/mux"
 )
 
 var (
@@ -135,9 +136,34 @@ func event1handler(resp http.ResponseWriter, req *http.Request) {
 	}
 }
 
+func event_data_handler(resp http.ResponseWriter, req *http.Request) {
+	vars := mux.Vars(req)
+	dimension := vars["dimension"]
+	key := vars["key"]
+	fmt.Println("dimension", dimension)
+	fmt.Println("key", key)
+}
+
+func calculated_data_handler(resp http.ResponseWriter, req *http.Request) {
+	vars := mux.Vars(req)
+	dimension := vars["dimension"]
+	key := vars["key"]
+	calculation := vars["calculation"]
+	interval := vars["interval"]
+	fmt.Println("dimension", dimension)
+	fmt.Println("key", key)
+	fmt.Println("calculation", calculation)
+	fmt.Println("interval", interval)
+}
+
 func main() {
-	http.HandleFunc("/contact", contacthandler)
-	http.HandleFunc("/api/1.0/event", event1handler)
+	r := mux.NewRouter()
+	r.HandleFunc("/contact", contacthandler)
+	r.HandleFunc("/api/1.0/event", event1handler)
+	r.HandleFunc("/api/1.0/event/{dimension}/{key}", event_data_handler)
+	r.HandleFunc("/api/1.0/event/{dimension}/{key}/{calculation}/{interval}", calculated_data_handler)
+
+	http.Handle("/", r)
 	fmt.Println("Listening on port 4567")
 	http.ListenAndServe(":4567", nil)
 }
