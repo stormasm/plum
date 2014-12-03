@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+
+source ./run/z
+cd spnee
+#go run spnee.go
+go build spnee.go
