@@ -32,3 +32,9 @@ All other APIs can be tested by running
 ```
 ./run/buildtest
 ```
+
+#### Notes
+
+* All of the above commands assume you are in the top level directory.
+* RabbitMQ must be running and configured with the correct channel names.
+* Redis must be running and populated with initial data
