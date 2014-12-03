@@ -37,7 +37,7 @@ func (t2 *Token2) FieldMap() binding.FieldMap {
 	}
 }
 
-func token1(resp http.ResponseWriter, req *http.Request) {
+func MyToken1(resp http.ResponseWriter, req *http.Request) {
 	t1 := new(Token1)
 	errs := binding.Bind(req, t1)
 	if errs.Handle(resp) {
@@ -54,7 +54,7 @@ func token1(resp http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func token2(resp http.ResponseWriter, req *http.Request) {
+func MyToken2(resp http.ResponseWriter, req *http.Request) {
 	t2 := new(Token2)
 	errs := binding.Bind(req, t2)
 	if errs.Handle(resp) {

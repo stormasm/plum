@@ -1,49 +1,26 @@
 package spnee
 
 import (
-	"encoding/json"
 	"fmt"
-	"github.com/codegangsta/negroni"
+	"github.com/stormasm/mux"
+	"github.com/stormasm/plum/handle"
 	"net/http"
 )
 
-type Message struct {
-	Name string
-	Body string
-}
-
 func Start() {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", HomeHandler)
 
-	mux.HandleFunc("/api/1.0/admin/token", AdminTokenHandler)
-	mux.HandleFunc("/api/1.0/admin/account", AdminAccountHandler)
+	http.HandleFunc("/api/1.0/admin/token", handle.MyToken1)
+	http.HandleFunc("/api/1.0/admin/account", handle.MyToken2)
 
-	n := negroni.Classic()
-	n.UseHandler(mux)
-	n.Run(":3000")
-}
+	r := mux.NewRouter()
+	r.HandleFunc("/api/1.0/event", handle.Event1)
+	r.HandleFunc("/api/1.0/event/{dimension}/{key}", handle.Event_data)
+	r.HandleFunc("/api/1.0/event/{dimension}/{key}/{calculation}/{interval}", handle.Calculated_data)
 
-func AdminTokenHandler(res http.ResponseWriter, req *http.Request) {
+	http.Handle("/", r)
 
-	m := Message{"Admin", "Token"}
-	b, err := json.Marshal(m)
-	if err != nil {
-    e := Message{"Error", "Message"}
-    be, err1:= json.Marshal(e)
-    fmt.Println(err1)
-    myerr := string(be)
-		fmt.Fprintf(res,myerr)
-	} else {
-		mystr := string(b)
-		fmt.Fprintf(res, mystr)
-	}
-}
-
-func AdminAccountHandler(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(res, "Welcome to Admin Account!")
-}
-
-func HomeHandler(res http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(res, "Welcome to Spnee!")
+	http.HandleFunc("/api/1.0/rule/comparator", handle.MyRuleComparator)
+	http.HandleFunc("/api/1.0/rule/observer", handle.MyRuleObserver)
+	fmt.Println("Listening on port 4567")
+	http.ListenAndServe(":4567", nil)
 }

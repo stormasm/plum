@@ -112,7 +112,7 @@ func (rc *RuleComparator) Process_comparator() (string, string) {
 	return dbnumber, rulekey
 }
 
-func ruleObserver(resp http.ResponseWriter, req *http.Request) {
+func MyRuleObserver(resp http.ResponseWriter, req *http.Request) {
 	observer := new(RuleObserver)
 	errs := binding.Bind(req, observer)
 	if errs.Handle(resp) {
@@ -131,7 +131,7 @@ func ruleObserver(resp http.ResponseWriter, req *http.Request) {
 	observer.Set_rule_key_observer(dbnumber, rulekey)
 }
 
-func ruleComparator(resp http.ResponseWriter, req *http.Request) {
+func MyRuleComparator(resp http.ResponseWriter, req *http.Request) {
 	comparator := new(RuleComparator)
 	errs := binding.Bind(req, comparator)
 	if errs.Handle(resp) {

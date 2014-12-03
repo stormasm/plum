@@ -96,7 +96,7 @@ func contacthandler(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println("c message = ", contactForm.Message)
 }
 
-func event1(resp http.ResponseWriter, req *http.Request) {
+func Event1(resp http.ResponseWriter, req *http.Request) {
 	event1 := new(Event1Customer)
 	errs := binding.Bind(req, event1)
 	if errs.Handle(resp) {
@@ -136,7 +136,7 @@ func event1(resp http.ResponseWriter, req *http.Request) {
 	}
 }
 
-func event_data(resp http.ResponseWriter, req *http.Request) {
+func Event_data(resp http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	dimension := vars["dimension"]
 	key := vars["key"]
@@ -154,7 +154,7 @@ func event_data(resp http.ResponseWriter, req *http.Request) {
 	fmt.Println(json)
 }
 
-func calculated_data(resp http.ResponseWriter, req *http.Request) {
+func Calculated_data(resp http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	dimension := vars["dimension"]
 	key := vars["key"]
