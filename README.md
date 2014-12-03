@@ -1,4 +1,6 @@
 
+#### Building
+
 To Build Spnee Run the following commands:
 
 ```
@@ -9,6 +11,16 @@ To Build Spnee Run the following commands:
 The **buildonce** script only needs to be run once :)
 
 And any time you add new go packages or delete old ones.
+
+#### Running
+
+To Run Spnee Run the following command:
+
+```
+./spnee/spnee
+```
+
+#### Testing
 
 Depending on the APIs you are testing different scripts and simulators
 need to be run...
