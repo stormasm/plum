@@ -3,6 +3,7 @@
 
 source ./run/z
 cd examples/api
-#go run admintoken.go
-#go run apitest.go
+# This is no longer going to be supported
+# go run apitest.go
 go run apievent.go
+go run apiadmin.go
