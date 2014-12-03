@@ -25,7 +25,7 @@ To Run Spnee Run the following command:
 Depending on the APIs you are testing different scripts and simulators
 need to be run...
 
-The rules API can be tested via the rules simulator.
+The rules API can be tested via the [rules simulator](https://github.com/stormasm/spinnakr-rule-simulator).
 
 All other APIs can be tested by running
 
