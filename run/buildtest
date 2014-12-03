@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+
+source ./run/z
+cd examples/api
+# This is no longer going to be supported
+# go run apitest.go
+go run apievent.go
+go run apiadmin.go
