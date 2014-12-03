@@ -2,5 +2,6 @@
 #
 
 source ./run/z
-cd examples/spnee
-go run test1.go
+cd spnee
+#go run spnee.go
+go build spnee.go
